@@ -114,11 +114,13 @@ public class PNBatalhaNaval extends JPanel implements MouseListener {
 			g2d.drawString(jogadores[1], (int)(xIni2+(7.5*(larg+espLinha))),(int) (yIni/2));
 			
 			
-			String labelY = "ABCDEFGHIJKLMNOPQRS";
+			String labelY = "ABCDEFGHIJKLMNO";
 			
 			for(int i=0;i<15;i++) {
 				g2d.drawString(String.valueOf(labelY.charAt(i)), (int)(xIni-15), (int)(yIni + (i*(alt+espLinha)+alt*0.7)));
 				g2d.drawString(String.valueOf(labelY.charAt(i)), (int)(xIni2-15), (int)(yIni + (i*(alt+espLinha)+alt*0.7)));
+				g2d.drawString(String.valueOf(i),(int)(xIni +(i*(larg+espLinha))+(larg*0.5)),(int)(yIni-7));
+				g2d.drawString(String.valueOf(i),(int)(xIni2 +(i*(larg+espLinha))+(larg*0.5)),(int)(yIni-7));
 			}
 			
 			
