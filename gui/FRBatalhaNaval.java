@@ -9,7 +9,7 @@ public class FRBatalhaNaval extends JFrame {
 	final int LARG_DEFAULT=1400;
 	final int ALT_DEFAULT=750;
 	
-	public FRBatalhaNaval(CtrlRegras c) {
+	public FRBatalhaNaval(Fachada f) {
 		Toolkit tk=Toolkit.getDefaultToolkit();
 		Dimension screenSize=tk.getScreenSize();
 		int sl=screenSize.width;
@@ -18,7 +18,9 @@ public class FRBatalhaNaval extends JFrame {
 		int y=sa/2-ALT_DEFAULT/2;
 		setBounds(x,y,LARG_DEFAULT,ALT_DEFAULT);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		getContentPane().add(new PNBatalhaNaval(c));
+		JPanel container = new JPanel(new GridLayout(1,1));
+		container.add(new PNBatalhaNaval(f));
+		getContentPane().add(container);
 		setTitle("Batalha Naval");
 	}
 	
@@ -26,6 +28,6 @@ public class FRBatalhaNaval extends JFrame {
 		boolean tabVisible = true;
 //		boolean introVisible = true;
 //		new FRIntro().setVisible(introVisible);
-		(new FRBatalhaNaval(new CtrlRegras())).setVisible(tabVisible);
+		(new FRBatalhaNaval(Fachada.getFachada())).setVisible(tabVisible);
 	}
 }
