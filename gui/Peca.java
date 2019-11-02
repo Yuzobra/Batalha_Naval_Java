@@ -17,7 +17,7 @@ public class Peca extends JPanel {
 	public Peca(int[][] peca, Color cor) {
 		this.peca = peca;
 		matriz = new Celula[peca.length][peca[0].length];
-		
+		this.cor = cor;
 		double x,y = 0;
 		for(int i=0;i<peca.length;i++) {
 			x = 0;

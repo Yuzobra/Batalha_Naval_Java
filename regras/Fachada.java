@@ -34,4 +34,8 @@ public class Fachada {
 	public void setJogadores(String jog1, String jog2) {
 		ctrl.setJogadores(jog1, jog2);
 	}
+	
+	public boolean verificaConflito(int posX, int posY, short numTab) {
+		return ctrl.verificaConflito(posX, posY, numTab);
+	}
 }

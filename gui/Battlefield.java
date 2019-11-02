@@ -15,6 +15,8 @@ public class Battlefield extends JPanel implements MouseListener  {
 	private Line2D.Double ln[]=new Line2D.Double[32];
 	private Fachada ctrl; 
 	private String nomeJog = "placeholder";
+	private boolean AttackMode = false;
+	
 	
 	private final double larg=30.0,alt=30.0,espLinha=5.0;
 	
@@ -80,20 +82,21 @@ public class Battlefield extends JPanel implements MouseListener  {
 		
 		
 		
-		
-		
-		for(int i=0;i<15;i++) {
-			for(int j=0;j<15;j++) {
-				if(mat[i][j]!=0) {
-					if(numTab == 1)
-						g2d.setPaint(Color.red);
-					else
-						g2d.setPaint(Color.blue);
-					rt=new Rectangle2D.Double(tab[i][j].x+(espLinha/2),tab[i][j].y+(espLinha/2),larg+1,alt+1);
-					g2d.fill(rt);
+		if(AttackMode == false) {
+			for(int i=0;i<15;i++) {
+				for(int j=0;j<15;j++) {
+					if(mat[i][j]!=0) {
+						if(numTab == 1)
+							g2d.setPaint(Color.red);
+						else
+							g2d.setPaint(Color.blue);
+						rt=new Rectangle2D.Double(tab[i][j].x+(espLinha/2),tab[i][j].y+(espLinha/2),larg+1,alt+1);
+						g2d.fill(rt);
+					}
 				}
-			}
+			}			
 		}
+		
 		
 		
 	}
@@ -107,25 +110,27 @@ public class Battlefield extends JPanel implements MouseListener  {
 		int[][] tabuleiro = ctrl.getMatriz(numTab);
 		int posX = (int)((x/(espLinha+larg))) - 1;
 		int posY = (int)((y/(espLinha+alt))) - 1;
-		System.out.println(posX);
-		System.out.println(posY);
-		System.out.println(offsetX);
-		System.out.println(offsetY);
 		
-		if(false) /* Verify if there are any pieces conflicting with this one */{
-			
-			return false;
+		
+		
+		
+		for(int i = 0; i < peca.length; i++) {
+			for(int j = 0; j < peca[i].length; j++) {
+				if(peca[i][j] != 0) {
+					if(posX - offsetX + j < 0 || posX - offsetX +j > 14 || posY - offsetY + i < 0 || posY - offsetY + i > 14) /* Verify if it fits in the battlefield */{
+						return false;
+					}
+					if(ctrl.verificaConflito(posX+j-offsetX, posY+i-offsetY,numTab) == false) /* Verify if there are any pieces conflicting with this one */{
+						return false;
+					}
+				}
+			}
 		}
 		
-		if(false) /* Verify if it fits in the battlefield */{
-			
-			return false;
-		}
-		if((x > xIni && x < xIni + 15*(larg+espLinha)) && (y > 0 && y < 15*(alt+espLinha))) {
+		if((x > xIni && x < xIni + 15*(larg+espLinha)) && (y > 0 && y < 16*(alt+espLinha))) {
 			for(int i = 0; i < peca.length; i++) {
 				for(int j = 0; j < peca[i].length; j++) {
 					if(peca[i][j] != 0) {
-
 						ctrl.setValor(posX+j-offsetX,posY+i-offsetY, numTab);
 					}
 				}
@@ -140,16 +145,17 @@ public class Battlefield extends JPanel implements MouseListener  {
 	public void mouseClicked(MouseEvent e) {
 		Rectangle2D rt;
 		int x=e.getX(),y=e.getY();
-		
-		System.out.println("X: "+Integer.toString(x));
-		System.out.println("Y: "+Integer.toString(y));
 		y-=yIni;		
 		
 		if((x > xIni && x < xIni + 15*(larg+espLinha)) && (y > 0 && y < 15*(alt+espLinha))) {
 			x-=xIni;
-			ctrl.setValor((int)(x/(larg+espLinha)),(int)(y/(alt+espLinha)), numTab);
-			repaint();
+//			ctrl.setValor((int)(x/(larg+espLinha)),(int)(y/(alt+espLinha)), numTab);
+//			repaint();
 		}	
+		
+	}
+	public void setAttackMode() {
+		this.AttackMode = true;
 	}
 	
 	public void mouseEntered(MouseEvent e) {}

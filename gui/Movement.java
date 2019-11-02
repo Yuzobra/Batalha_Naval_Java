@@ -12,17 +12,18 @@ import regras.*;
 
 public class Movement implements MouseListener, MouseMotionListener, Observable{
 
-	private int pressedX, pressedY, releasedX, releasedY, offsetX, offsetY;
+	private int pressedX, pressedY, releasedX, releasedY, offsetX, offsetY, numPeca;
 	List<Observer> lob=new ArrayList<Observer>();
 	private final double larg=30.0,alt=30.0;
 	
 	JPanel panel;
 	
 	
-	public Movement(JPanel panel) {
+	public Movement(JPanel panel, int numPeca) {
 		panel.addMouseListener(this);
 		panel.addMouseMotionListener(this);
 		this.panel = panel;
+		this.numPeca = numPeca;
 	}
 
 	@Override
@@ -112,13 +113,14 @@ public class Movement implements MouseListener, MouseMotionListener, Observable{
 	@Override
 	public Object get() {
 		// TODO Auto-generated method stub
-		Object data[] = new Object[6]; 
+		Object data[] = new Object[7]; 
 		data[0] = "movement-released";
 		data[1] = panel.getX() + pressedX;
 		data[2] = panel.getY() + pressedY;
 		data[3] = offsetX;
 		data[4] = offsetY;
 		data[5] = ((Peca) panel).getPeca();
+		data[6] = numPeca;
 		return data;
 	}
 }

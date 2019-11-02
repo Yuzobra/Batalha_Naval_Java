@@ -34,6 +34,7 @@ public class CtrlRegras implements Observable {
 	}
 	
 	public void setValor(int i, int j, short numTab) {
+		
 		if(numTab == 1) {
 			if (this.tabuleiro1[j][i] == 0) {
 				this.tabuleiro1[j][i] = vez;
@@ -69,7 +70,23 @@ public class CtrlRegras implements Observable {
 			o.notify(this);
 	}
 
+	
+	public boolean verificaConflito(int posX , int posY, short numTab) {
+		int [][] tabuleiro;		
 
+		if(numTab == 1) {
+			tabuleiro = this.tabuleiro1;
+		}
+		else {
+			tabuleiro = this.tabuleiro2;
+		}
+		if(tabuleiro[posY][posX] != 0) {
+			return false;
+		}
+		return true;
+	}
+	
+	
 	public void addObserver(Observer o) {
 		lob.add(o);
 	}
