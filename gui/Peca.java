@@ -12,7 +12,7 @@ public class Peca extends JPanel {
 	private Color cor;
 	private Celula[][] matriz;
 	private final double larg=30.0,alt=30.0,espLinha=5.0;
-	
+	private int flipped = 0;
 	
 	public Peca(int[][] peca, Color cor) {
 		this.peca = peca;
@@ -61,6 +61,37 @@ public class Peca extends JPanel {
 		return peca;
 	}
 	
-	
-	
+	public void viraPeca() {
+		int [][] newPeca;
+		newPeca = new int[this.peca[0].length][this.peca.length];
+		for(int i=0; i < this.peca.length; i++) {
+			for(int j=0; j < this.peca[0].length; j++) {
+				newPeca[j][i] = this.peca[i][j];
+				flipped++;
+			}
+		}
+		
+		if(flipped%2 == 0) {
+			int[][] flippedNewPeca = new int[newPeca.length][newPeca[0].length];
+			for(int i = 0; i < newPeca.length ;i++) {
+				flippedNewPeca[i] = newPeca[newPeca.length-1-i];
+			}
+			newPeca = flippedNewPeca;
+		}
+		
+		this.peca = newPeca;
+		
+		double x, y=0;
+		matriz = new Celula[peca.length][peca[0].length];
+		for(int i=0;i<peca.length;i++) {
+			x = 0;
+			for(int j=0;j<peca[0].length;j++) {
+				matriz[i][j]=new Celula(x,y);
+				x+=larg;
+			}
+			y+=alt;		
+		}
+		this.setBounds(this.getX(), this.getY(), this.getHeight(), this.getWidth() );
+		repaint();
+	}
 }

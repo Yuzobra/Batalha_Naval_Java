@@ -16,13 +16,13 @@ public class Movement implements MouseListener, MouseMotionListener, Observable{
 	List<Observer> lob=new ArrayList<Observer>();
 	private final double larg=30.0,alt=30.0;
 	
-	JPanel panel;
+	Peca panel;
 	
 	
 	public Movement(JPanel panel, int numPeca) {
 		panel.addMouseListener(this);
 		panel.addMouseMotionListener(this);
-		this.panel = panel;
+		this.panel = (Peca)panel;
 		this.numPeca = numPeca;
 	}
 
@@ -71,7 +71,9 @@ public class Movement implements MouseListener, MouseMotionListener, Observable{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		if(e.getButton() == MouseEvent.BUTTON3) {
+            panel.viraPeca();
+          }
 	}
 
 	@Override
@@ -112,7 +114,6 @@ public class Movement implements MouseListener, MouseMotionListener, Observable{
 
 	@Override
 	public Object get() {
-		// TODO Auto-generated method stub
 		Object data[] = new Object[7]; 
 		data[0] = "movement-released";
 		data[1] = panel.getX() + pressedX;

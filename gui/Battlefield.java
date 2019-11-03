@@ -140,6 +140,9 @@ public class Battlefield extends JPanel implements MouseListener  {
 		return true;
 	}
 	
+	public void setAttackMode() {
+		this.AttackMode = true;
+	}
 	
 	
 	public void mouseClicked(MouseEvent e) {
@@ -152,12 +155,8 @@ public class Battlefield extends JPanel implements MouseListener  {
 //			ctrl.setValor((int)(x/(larg+espLinha)),(int)(y/(alt+espLinha)), numTab);
 //			repaint();
 		}	
-		
 	}
-	public void setAttackMode() {
-		this.AttackMode = true;
-	}
-	
+
 	public void mouseEntered(MouseEvent e) {}
 	public void mousePressed(MouseEvent e) {}
 	public void mouseReleased(MouseEvent e) {}

@@ -95,9 +95,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				BF2.setAttackMode();
 				container.add(BF1,0);
 				container.add(BF2,1);
-			}
-
-		    
+			}		    
 		    add(container);
 		    
 		}		
