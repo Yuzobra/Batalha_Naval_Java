@@ -214,11 +214,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		mv13.addObserver(this);
 		mv14.addObserver(this);
 		
-		setPecas();
 		
-	}
-	
-	private void setPecas() {
 		vPecas[0].setBounds(50,100, 100,70);
 		vPecas[1].setBounds(185,100, 100,70);
 		vPecas[2].setBounds(320,100, 100,70);
@@ -238,6 +234,32 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		vPecas[13].setBounds(320,400, 60,30);
 		
 		vPecas[14].setBounds(50,500, 150,30);
+		
+		
+		setPecas();
+		
+	}
+	
+	private void setPecas() {
+		vPecas[0].setLocation(50,100);
+		vPecas[1].setLocation(185,100);
+		vPecas[2].setLocation(320,100);
+		vPecas[3].setLocation(455,100);				
+		vPecas[4].setLocation(590,100);				
+		
+		vPecas[5].setLocation(50,200);
+		vPecas[6].setLocation(185,200);
+		
+		vPecas[7].setLocation(50,300);
+		vPecas[8].setLocation(185,300);
+		vPecas[9].setLocation(320,300);
+		vPecas[10].setLocation(455,300);				
+		
+		vPecas[11].setLocation(50,400);		
+		vPecas[12].setLocation(185,400);
+		vPecas[13].setLocation(320,400);
+		
+		vPecas[14].setLocation(50,500);
 	    
 		container.add(vPecas[0],0);
 	    container.add(vPecas[1],1);
