@@ -48,7 +48,7 @@ public class Peca extends JPanel {
 		for(int i=0;i<peca.length;i++) {
 			for(int j=0;j<peca[0].length;j++) {
 				if(peca[i][j]!=0) {
-					rt=new Rectangle2D.Double(matriz[i][j].x+(espLinha/2),matriz[i][j].y+(espLinha/2),larg+1,alt+1);
+					rt=new Rectangle2D.Double(matriz[i][j].getX()+(espLinha/2),matriz[i][j].getY()+(espLinha/2),larg+1,alt+1);
 					g2d.fill(rt);
 				}
 			}

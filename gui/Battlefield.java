@@ -90,7 +90,7 @@ public class Battlefield extends JPanel implements MouseListener  {
 							g2d.setPaint(Color.red);
 						else
 							g2d.setPaint(Color.blue);
-						rt=new Rectangle2D.Double(tab[i][j].x+(espLinha/2),tab[i][j].y+(espLinha/2),larg+1,alt+1);
+						rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
 						g2d.fill(rt);
 					}
 				}
