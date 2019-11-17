@@ -8,7 +8,7 @@ class Celula {
 	
 	
 	public enum Estado{
-		Vazio,Ocupado,Atacado,Invalido;
+		Vazio,Atacado,Erro;
 	}
 	
 	
