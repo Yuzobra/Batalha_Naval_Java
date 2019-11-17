@@ -86,6 +86,7 @@ public class CtrlRegras implements Observable {
 		return true;
 	}
 	
+	public boolean orderAttack(String jog,)
 	
 	public void addObserver(Observer o) {
 		lob.add(o);

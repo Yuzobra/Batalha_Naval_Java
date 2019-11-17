@@ -17,7 +17,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	Line2D.Double ln1[]=new Line2D.Double[32];
 	Line2D.Double ln2[]=new Line2D.Double[32];
 	Fachada ctrl;
-	
+	int vez = 0;
 	
 	JTextField nameTextField = new JTextField(20);
 	JTextField nameTextField2 = new JTextField(20);
@@ -94,7 +94,8 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				container.add(BF2,15);
 				
 			}
-			else {
+			else if(jog2Posicionado == true && jog1Posicionado == true && vez == 0)
+			{
 				BF1.setBounds(0,0, 700, 1000);
 				container.remove(BF2);
 				BF1.setAttackMode();
@@ -103,7 +104,11 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				container.add(BF2,1);
 				//System.out.println("colocando button");
 				add(buttonInicioAtaque);
-			}		    
+			}
+			else if(jog2Posicionado == true && jog1Posicionado == true && vez == 1)
+			{
+				
+			}
 		    add(container);
 		    
 		}		
@@ -130,18 +135,21 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	
 	private void setAttack(Jogador jogador)
 	{
-		System.out.println("complicado");
 		if(jogador.getVez() == 1)
 		{
+			vez=1;
 			BF1.setHidden(false);
+			System.out.printf("bf1 agora tem isHidden: %b\n", BF1.isHidden());
+			System.out.printf("bf1 settado falso e mandado pro repaint\n");
 			BF1.repaint();
 		}
 		else
 		{
+			vez = 2;
 			BF2.setHidden(false);
 			BF2.repaint();
 		}
-		repaint();
+		//repaint();
 	}
 	
 	public void notify(Observable o) {

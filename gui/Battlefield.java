@@ -53,6 +53,7 @@ public class Battlefield extends JPanel implements MouseListener  {
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		//System.out.println("pintando");
 		Graphics2D g2d=(Graphics2D) g;
 		Rectangle2D rt; 
 		int mat[][]=ctrl.getMatriz(numTab);
@@ -99,8 +100,10 @@ public class Battlefield extends JPanel implements MouseListener  {
 		}
 		else
 		{
+			System.out.printf("entro no else com isHidden: %b ", this.isHidden);
 			if(isHidden == true)
 			{
+				System.out.println("escondendo");
 				for(int i=0;i<15;i++) {
 					for(int j=0;j<15;j++) 
 					{
@@ -183,7 +186,8 @@ public class Battlefield extends JPanel implements MouseListener  {
 		return true;
 	}
 	
-	public void setAttackMode() {
+	public void setAttackMode() 
+	{
 
 		this.AttackMode = true;
 		this.isHidden = true;
@@ -238,5 +242,6 @@ public class Battlefield extends JPanel implements MouseListener  {
 
 	public void setHidden(boolean isHidden) {
 		this.isHidden = isHidden;
+		System.out.printf("Settando %b\n" , isHidden);
 	}
 }
