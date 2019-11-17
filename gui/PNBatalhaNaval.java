@@ -104,6 +104,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				container.add(BF2,1);
 				//System.out.println("colocando button");
 				add(buttonInicioAtaque);
+				
 			}
 			else if(jog2Posicionado == true && jog1Posicionado == true && vez == 1)
 			{
