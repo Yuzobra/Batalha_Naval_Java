@@ -251,8 +251,14 @@ public class Battlefield extends JPanel implements MouseListener  {
 	
 	public void initAttack(int x , int y)
 	{
-		//short estado = ctrl.
-		//for (int )
+		short estado = ctrl.orderAttack(nomeJog , x, y, numTab);
+		
+		
+		
+		for (int i = 0 ; i < 3 ; i++ )
+		{
+			
+		}
 	}
 	
 	
