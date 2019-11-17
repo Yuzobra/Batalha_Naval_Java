@@ -17,7 +17,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	Line2D.Double ln1[]=new Line2D.Double[32];
 	Line2D.Double ln2[]=new Line2D.Double[32];
 	Fachada ctrl;
-	int vez = 0;
+	int vez = -1;
 	
 	JTextField nameTextField = new JTextField(20);
 	JTextField nameTextField2 = new JTextField(20);
@@ -94,8 +94,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				container.add(BF2,15);
 				
 			}
-			else if(jog2Posicionado == true && jog1Posicionado == true && vez == 0)
-			{
+			else if(jog2Posicionado == true && jog1Posicionado == true && vez == -1) {
 				BF1.setBounds(0,0, 700, 1000);
 				container.remove(BF2);
 				BF1.setAttackMode();
@@ -103,9 +102,16 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				container.add(BF1,0);
 				container.add(BF2,1);
 				//System.out.println("colocando button");
+				buttonInicioAtaque.setBounds(600, 550, 100, 40);
 				add(buttonInicioAtaque);
+				
+				//MUDAR AQUI A VEZ
 			}
-			else if(jog2Posicionado == true && jog1Posicionado == true && vez == 1)
+			else if(vez == 1)
+			{
+				
+			}
+			else if(vez == 2)
 			{
 				
 			}

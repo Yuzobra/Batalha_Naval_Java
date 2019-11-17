@@ -90,12 +90,20 @@ public class CtrlRegras implements Observable {
 	{
 		int [][] tabuleiro;		
 
+		
+		
+		// 1 -> Possui uma peca nao atacada
+		// 2 -> Possui uma peca atacada
+		// 3 -> Nao possui nada
+		
+		
 		if(numTab == 1) {
 			tabuleiro = this.tabuleiro1;
 		}
 		else {
 			tabuleiro = this.tabuleiro2;
 		}
+		
 		if(tabuleiro[posY][posX] == 1 ) 
 		{
 			tabuleiro[posY][posX] = 2;
