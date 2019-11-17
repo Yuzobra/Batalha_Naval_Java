@@ -114,6 +114,7 @@ public class Battlefield extends JPanel implements MouseListener  {
 			}
 			else
 			{
+				System.out.println("começando ataque");
 				for(int i=0;i<15;i++) {
 					for(int j=0;j<15;j++) {
 						if(mat[i][j]!=0) 

@@ -130,15 +130,18 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	
 	private void setAttack(Jogador jogador)
 	{
+		System.out.println("complicado");
 		if(jogador.getVez() == 1)
 		{
 			BF1.setHidden(false);
+			BF1.repaint();
 		}
 		else
 		{
 			BF2.setHidden(false);
+			BF2.repaint();
 		}
-		 repaint();
+		repaint();
 	}
 	
 	public void notify(Observable o) {
