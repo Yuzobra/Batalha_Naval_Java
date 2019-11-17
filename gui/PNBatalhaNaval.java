@@ -67,8 +67,8 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 
 	        buttonInicio.addActionListener(new IntroButton());
 	        buttonInicio.setBounds(670, 450, 100, 40);
-	        buttonInicioAtaque.addActionListener(new IntroButton());
-	        buttonInicioAtaque.setBounds(570, 650, 100, 40);
+	        buttonInicioAtaque.addActionListener(new AtaqueButton());
+	        buttonInicioAtaque.setBounds(600, 550, 100, 40);
 	        
 	        add(nameTextField);
 	        add(nameTextField2);
@@ -101,7 +101,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				BF2.setAttackMode();
 				container.add(BF1,0);
 				container.add(BF2,1);
-				System.out.println("colocando button");
+				//System.out.println("colocando button");
 				add(buttonInicioAtaque);
 			}		    
 		    add(container);
@@ -120,7 +120,27 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	    }
 	}
 
+	class AtaqueButton implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("clicando");
+			setAttack(j1);
+	    }
+	}
 
+	
+	private void setAttack(Jogador jogador)
+	{
+		if(jogador.getVez() == 1)
+		{
+			BF1.setHidden(false);
+		}
+		else
+		{
+			BF2.setHidden(false);
+		}
+		 repaint();
+	}
+	
 	public void notify(Observable o) {
 		//System.out.println("passando no panel");
 		Object lob[] =(Object[]) o.get();

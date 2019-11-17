@@ -16,8 +16,9 @@ public class Battlefield extends JPanel implements MouseListener  {
 	private Fachada ctrl; 
 	private String nomeJog = "placeholder";
 	private boolean AttackMode = false;
+	private boolean isHidden = false;
 	
-	
+
 	private final double larg=30.0,alt=30.0,espLinha=5.0;
 	
 	public Battlefield(double xIni, double yIni, short numTab, Fachada f){
@@ -87,9 +88,9 @@ public class Battlefield extends JPanel implements MouseListener  {
 				for(int j=0;j<15;j++) {
 					if(mat[i][j]!=0) {
 						if(numTab == 1)
-							g2d.setPaint(Color.red);
+							g2d.setPaint(Color.YELLOW);
 						else
-							g2d.setPaint(Color.blue);
+							g2d.setPaint(Color.GREEN);
 						rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
 						g2d.fill(rt);
 					}
@@ -98,17 +99,45 @@ public class Battlefield extends JPanel implements MouseListener  {
 		}
 		else
 		{
-			for(int i=0;i<15;i++) {
-				for(int j=0;j<15;j++) 
-				{
-					//System.out.println("pqp desenha krl ");
-					g2d.setColor(Color.CYAN);
-					rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
-					g2d.fill(rt);
-					
+			if(isHidden == true)
+			{
+				for(int i=0;i<15;i++) {
+					for(int j=0;j<15;j++) 
+					{
+						//System.out.println("pqp desenha krl ");
+						g2d.setColor(Color.CYAN);
+						rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
+						g2d.fill(rt);
+						
+					}
 				}
 			}
+			else
+			{
+				for(int i=0;i<15;i++) {
+					for(int j=0;j<15;j++) {
+						if(mat[i][j]!=0) 
+						{
+							if(numTab == 1)
+								{g2d.setPaint(Color.YELLOW);}
+							else
+								{g2d.setPaint(Color.GREEN);}
+							rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
+							g2d.fill(rt);
+						
+						}
+						else
+						{
+							g2d.setColor(Color.CYAN);
+							rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
+							g2d.fill(rt);							
+						}
+					}
+				}
+				
+			}
 		}
+		
 		
 		
 		
@@ -155,7 +184,8 @@ public class Battlefield extends JPanel implements MouseListener  {
 	
 	public void setAttackMode() {
 
-		this.AttackMode = true;;
+		this.AttackMode = true;
+		this.isHidden = true;
 		repaint();
 	}
 	
@@ -199,4 +229,13 @@ public class Battlefield extends JPanel implements MouseListener  {
 	public void mousePressed(MouseEvent e) {}
 	public void mouseReleased(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
+	
+	
+	public boolean isHidden() {
+		return isHidden;
+	}
+
+	public void setHidden(boolean isHidden) {
+		this.isHidden = isHidden;
+	}
 }
