@@ -96,6 +96,19 @@ public class Battlefield extends JPanel implements MouseListener  {
 				}
 			}			
 		}
+		else
+		{
+			for(int i=0;i<15;i++) {
+				for(int j=0;j<15;j++) 
+				{
+					//System.out.println("pqp desenha krl ");
+					g2d.setColor(Color.CYAN);
+					rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
+					g2d.fill(rt);
+					
+				}
+			}
+		}
 		
 		
 		
@@ -141,11 +154,36 @@ public class Battlefield extends JPanel implements MouseListener  {
 	}
 	
 	public void setAttackMode() {
-		this.AttackMode = true;
+
+		this.AttackMode = true;;
+		repaint();
 	}
 	
+	/*
+	public void setHidden(Graphics g) {
+		super.paintComponent(g);
+		System.out.println("funcionando");
+		Graphics2D g2d=(Graphics2D) g;
+		Rectangle2D rt;
+		
+		g2d.setStroke(new BasicStroke(5.0f,
+                BasicStroke.CAP_BUTT,
+                BasicStroke.JOIN_MITER,
+                10.0f));
+		
+		for(int i=0;i<15;i++) {
+			for(int j=0;j<15;j++) {
+				
+					g2d.setPaint(new Color(135,206,250,1));
+					rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
+					g2d.fill(rt);
+				
+			}
+		}
+		repaint();
+	}*/
 	
-	public void mouseClicked(MouseEvent e) {
+ 	public void mouseClicked(MouseEvent e) {
 		Rectangle2D rt;
 		int x=e.getX(),y=e.getY();
 		y-=yIni;		
