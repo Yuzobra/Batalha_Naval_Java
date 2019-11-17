@@ -24,7 +24,10 @@ public class Peca extends JPanel implements MouseListener, MouseMotionListener, 
 	}
 
 	private Peca(int[][] peca, Color cor, int numPeca) {
+		this.addMouseListener(this);
+		this.addMouseMotionListener(this);
 		this.peca = peca;
+		
 		matriz = new Celula[peca.length][peca[0].length];
 		this.cor = cor;
 		double x,y = 0;
@@ -157,7 +160,6 @@ public class Peca extends JPanel implements MouseListener, MouseMotionListener, 
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("dragged recebendo");
 		try {
 			if((int)(e.getY() / alt) > peca.length || (int)(e.getY() / alt) < 0) {
 				this.pressedX = e.getX();
