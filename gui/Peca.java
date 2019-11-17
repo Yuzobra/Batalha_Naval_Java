@@ -15,7 +15,7 @@ public class Peca extends JPanel implements MouseListener, MouseMotionListener, 
 	private Celula[][] matriz;
 	private final double larg=30.0,alt=30.0,espLinha=5.0;
 	private int flipped = 0;
-	private int pressedX, pressedY, releasedX, releasedY, offsetX, offsetY, numPeca;
+	private int pressedX=0, pressedY=0, releasedX=0, releasedY=0, offsetX=0, offsetY=0, numPeca= 0;
 	List<Observer> lob=new ArrayList<Observer>();
 	
 	
@@ -23,11 +23,12 @@ public class Peca extends JPanel implements MouseListener, MouseMotionListener, 
 		Couraçado,HidroPlano,Sub,Crusador,Destroyer;
 	}
 
-	private Peca(int[][] peca, Color cor) {
+	private Peca(int[][] peca, Color cor, int numPeca) {
 		this.peca = peca;
 		matriz = new Celula[peca.length][peca[0].length];
 		this.cor = cor;
 		double x,y = 0;
+		this.numPeca = numPeca;
 		for(int i=0;i<peca.length;i++) {
 			x = 0;
 			for(int j=0;j<peca[0].length;j++) {
@@ -39,7 +40,7 @@ public class Peca extends JPanel implements MouseListener, MouseMotionListener, 
 		setOpaque(false);
 	}
 	
-		public static Peca criaPeca (Type type, Color cor) {
+    public static Peca criaPeca (Type type, Color cor, int numPeca) {
 		int matrix_peca [][] ; 
 		
 		if(type == Type.Couraçado)
@@ -63,7 +64,7 @@ public class Peca extends JPanel implements MouseListener, MouseMotionListener, 
 			matrix_peca = new int [][] {{1}};
 		}
 		
-		Peca p = new Peca(matrix_peca,cor);
+		Peca p = new Peca(matrix_peca,cor,numPeca);
 		return p;
 	}
 	
@@ -136,7 +137,6 @@ public class Peca extends JPanel implements MouseListener, MouseMotionListener, 
 		lob.add(o);
 	}
 
-
 	public void removeObserver(Observer o) {
 		lob.remove(o);
 	}
@@ -157,6 +157,7 @@ public class Peca extends JPanel implements MouseListener, MouseMotionListener, 
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
+		System.out.println("dragged recebendo");
 		try {
 			if((int)(e.getY() / alt) > peca.length || (int)(e.getY() / alt) < 0) {
 				this.pressedX = e.getX();
