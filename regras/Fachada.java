@@ -38,4 +38,9 @@ public class Fachada {
 	public boolean verificaConflito(int posX, int posY, short numTab) {
 		return ctrl.verificaConflito(posX, posY, numTab);
 	}
+	
+	public short orderAttack(String jog, int posX , int posY, short numTab)
+	{
+		return ctrl.orderAttack(jog, posX, posY, numTab);
+	}
 }

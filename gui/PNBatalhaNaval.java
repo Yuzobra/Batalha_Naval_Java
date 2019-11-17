@@ -139,6 +139,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		{
 			vez=1;
 			BF1.setHidden(false);
+			BF2.isUnderAttack = true;
 			System.out.printf("bf1 agora tem isHidden: %b\n", BF1.isHidden());
 			System.out.printf("bf1 settado falso e mandado pro repaint\n");
 			BF1.repaint();
@@ -147,6 +148,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		{
 			vez = 2;
 			BF2.setHidden(false);
+			BF1.isUnderAttack = true;
 			BF2.repaint();
 		}
 		//repaint();

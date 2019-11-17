@@ -86,7 +86,31 @@ public class CtrlRegras implements Observable {
 		return true;
 	}
 	
-	public boolean orderAttack(String jog,)
+	public short orderAttack(String jog, int posX , int posY, short numTab)
+	{
+		int [][] tabuleiro;		
+
+		if(numTab == 1) {
+			tabuleiro = this.tabuleiro1;
+		}
+		else {
+			tabuleiro = this.tabuleiro2;
+		}
+		if(tabuleiro[posY][posX] == 1 ) 
+		{
+			tabuleiro[posY][posX] = 2;
+			return 1;
+		}
+		else if(tabuleiro[posY][posX] == 3)
+		{
+			return 0;
+		}
+		else
+		{
+			tabuleiro[posY][posX] = 3;
+			return -1;
+		}
+	}
 	
 	public void addObserver(Observer o) {
 		lob.add(o);

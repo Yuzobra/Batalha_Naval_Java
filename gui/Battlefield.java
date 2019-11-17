@@ -17,7 +17,8 @@ public class Battlefield extends JPanel implements MouseListener  {
 	private String nomeJog = "placeholder";
 	private boolean AttackMode = false;
 	private boolean isHidden = false;
-	
+	public boolean isUnderAttack = false;
+	int pressedX=0 , pressedY=0;
 
 	private final double larg=30.0,alt=30.0,espLinha=5.0;
 	
@@ -231,7 +232,30 @@ public class Battlefield extends JPanel implements MouseListener  {
 	}
 
 	public void mouseEntered(MouseEvent e) {}
-	public void mousePressed(MouseEvent e) {}
+	public void mousePressed(MouseEvent e) 
+	{
+		if(AttackMode == true)
+		{
+			if(isUnderAttack == true)
+			{
+				System.out.println("recebendo ");
+				pressedX = e.getX();
+				pressedY = e.getY();
+				
+				initAttack(pressedX, pressedY);
+			}
+			
+		}
+
+	}
+	
+	public void initAttack(int x , int y)
+	{
+		//short estado = ctrl.
+		//for (int )
+	}
+	
+	
 	public void mouseReleased(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
 	
