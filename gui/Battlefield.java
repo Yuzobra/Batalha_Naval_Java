@@ -114,8 +114,8 @@ public class Battlefield extends JPanel implements MouseListener  {
 		
 	}
 	
-	public void setJogador(String nomeJog) {
-		this.nomeJog = nomeJog;
+	public void setJogador(Jogador jogador) {
+		this.nomeJog = jogador.getMyName();
 	}
 	
 	public Boolean setPeca(int[][] peca, int x, int y, int offsetX, int offsetY) {

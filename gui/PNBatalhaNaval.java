@@ -11,8 +11,9 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	int iClick,jClick;
 	Celula tab1[][]=new Celula[15][15];
 	Celula tab2[][]=new Celula[15][15];
-	String[] jogadores;
-	
+	Jogador j1;
+	Jogador j2;
+	//Jogador jogadores [] ;
 	Line2D.Double ln1[]=new Line2D.Double[32];
 	Line2D.Double ln2[]=new Line2D.Double[32];
 	Fachada ctrl;
@@ -26,8 +27,9 @@ public class PNBatalhaNaval extends JPanel implements Observer {
     Battlefield BF2;
     JPanel container;
     
-    Peca vPecas[];
-
+    Peca vPecas1[];
+    Peca vPecas2[];
+    
     boolean jog1Posicionado = false, jog2Posicionado = false;
 	
 
@@ -36,16 +38,16 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		Fachada.getFachada().register(this);
 		BF1 = new Battlefield(xIni, yIni, (short)1, Fachada.getFachada());
 		BF2 = new Battlefield(xIni, yIni, (short)2, Fachada.getFachada());
-		jogadores = new String[2];
-		jogadores[0] = jogadores[1] = "";
+		j1 = Jogador.criaJogador("stub", 1);
+		j2 = Jogador.criaJogador("stub", 2);
+		//jogadores = new Jogador [] {j1,j2};
 		container = new JPanel(new GridLayout(2,1));
 		container.setSize(1400, 700);
 		container.setLayout(null);
 		container.setLocation(0, 0);
 		
+		this.setPecas();
 		
-		vPecas = new Peca[15];
-		this.CriaPecas();
 	
 	}
 	
@@ -53,7 +55,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		super.paintComponent(g);
 		Graphics2D g2d=(Graphics2D) g;
 		
-		if(jogadores[0].compareTo("") == 0 || jogadores[1].compareTo("") == 0) {
+		if(j1.getMyName() == "stub" || j2.getMyName() == "stub") {
 			g2d.drawString("Jogador 1:", 650, 350);
 			g2d.drawString("Jogador 2:", 650, 400);
 			nameTextField.setBounds(715, 335, 100, 25);
@@ -107,8 +109,8 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	class IntroButton implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 	       ctrl.setJogadores(nameTextField.getText(), nameTextField2.getText());
-	       BF1.setJogador(jogadores[0]);
-	       BF2.setJogador(jogadores[1]);
+	       BF1.setJogador(j1);
+	       BF2.setJogador(j2);
 	    }
 	}
 
@@ -117,7 +119,9 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		Object lob[] =(Object[]) o.get();
 		String type = (String) lob[0];
 		if(type.compareTo("regras") == 0) {
-			jogadores = (String[])lob[4];	
+			String [] jogadores = (String [])lob[4];	
+			j1.setMyName(jogadores[0]);
+			j2.setMyName(jogadores[1]);
 			repaint();
 		}
 		else if(type.compareTo("movement-released") == 0) {
@@ -126,7 +130,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				//AJEITAR ISSO:
 				if(!jog1Posicionado) {
 					if(BF1.setPeca((int[][])lob[5], (int)lob[1] - 700, (int)lob[2],(int)lob[3],(int)lob[4])) {
-						container.remove(vPecas[(int)lob[6]]);
+						container.remove(vPecas1[(int)lob[6]]);
 					}	
 					if(container.getComponentCount() == 1) {
 						jog1Posicionado = true;
@@ -136,7 +140,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				}
 				else if(!jog2Posicionado){					
 					if(BF2.setPeca((int[][])lob[5], (int)lob[1] - 700, (int)lob[2],(int)lob[3],(int)lob[4])) {
-						container.remove(vPecas[(int)lob[6]]);
+						container.remove(vPecas2[(int)lob[6]]);
 					}
 					if(container.getComponentCount() == 1) {
 						jog2Posicionado = true;
@@ -148,133 +152,109 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	}
 	
 	
-	private void CriaPecas(){
-		int[][] matriz = new int[][]{{0,1,0},{1,0,1}};
-		Color myColor;
-		myColor = new Color(230, 170, 7);
-		this.vPecas[0] = new Peca(matriz, myColor);
-		this.vPecas[1] = new Peca(matriz, myColor);
-		this.vPecas[2] = new Peca(matriz, myColor);
-		this.vPecas[3] = new Peca(matriz, myColor);
-		this.vPecas[4] = new Peca(matriz, myColor);
-		
-		
-		myColor = new Color(109, 158, 89);		
-		matriz = new int[][]{{1,1,1,1}};
-		this.vPecas[5] = new Peca(matriz, myColor);
-		this.vPecas[6] = new Peca(matriz, myColor);
-		
-		myColor = new Color(189, 111, 159);
-		matriz = new int[][]{{1}};
-		this.vPecas[7] = new Peca(matriz, myColor);
-		this.vPecas[8] = new Peca(matriz, myColor);
-		this.vPecas[9] = new Peca(matriz, myColor);
-		this.vPecas[10] = new Peca(matriz, myColor);
-		
-		myColor = new Color(111, 170, 189);
-		matriz = new int[][]{{1,1}};
-		this.vPecas[11] = new Peca(matriz, myColor);
-		this.vPecas[12] = new Peca(matriz, myColor);
-		this.vPecas[13] = new Peca(matriz, myColor);
-		
-		myColor = new Color(219, 101, 86);
-		matriz = new int[][]{{1,1,1,1,1}};
-		this.vPecas[14] = new Peca(matriz, myColor);
-		
-		Movement mv = new Movement(vPecas[0],0);
-		Movement mv1 = new Movement(vPecas[1],1);
-		Movement mv2 = new Movement(vPecas[2],2);
-		Movement mv3 = new Movement(vPecas[3],3);
-		Movement mv4 = new Movement(vPecas[4],4);
-		Movement mv5 = new Movement(vPecas[5],5);
-		Movement mv6 = new Movement(vPecas[6],6);
-		Movement mv7 = new Movement(vPecas[7],7);
-		Movement mv8 = new Movement(vPecas[8],8);
-		Movement mv9 = new Movement(vPecas[9],9);
-		Movement mv10 = new Movement(vPecas[10],10);
-		Movement mv11 = new Movement(vPecas[11],11);
-		Movement mv12 = new Movement(vPecas[12],12);
-		Movement mv13 = new Movement(vPecas[13],13);
-		Movement mv14 = new Movement(vPecas[14],14);
-		
-	    
-		mv.addObserver(this);
-		mv1.addObserver(this);
-		mv2.addObserver(this);
-		mv3.addObserver(this);
-		mv4.addObserver(this);
-		mv5.addObserver(this);
-		mv6.addObserver(this);
-		mv7.addObserver(this);
-		mv8.addObserver(this);
-		mv9.addObserver(this);
-		mv10.addObserver(this);
-		mv11.addObserver(this);
-		mv12.addObserver(this);
-		mv13.addObserver(this);
-		mv14.addObserver(this);
-		
-		
-		vPecas[0].setBounds(50,100, 100,70);
-		vPecas[1].setBounds(185,100, 100,70);
-		vPecas[2].setBounds(320,100, 100,70);
-		vPecas[3].setBounds(455,100, 100,70);				
-		vPecas[4].setBounds(590,100, 100,70);				
-		
-		vPecas[5].setBounds(50,200, 120,30);
-		vPecas[6].setBounds(185,200, 120,30);
-		
-		vPecas[7].setBounds(50,300, 30,30);
-		vPecas[8].setBounds(185,300, 30,30);
-		vPecas[9].setBounds(320,300, 30,30);
-		vPecas[10].setBounds(455,300, 30,30);				
-		
-		vPecas[11].setBounds(50,400, 60,30);		
-		vPecas[12].setBounds(185,400, 60,30);
-		vPecas[13].setBounds(320,400, 60,30);
-		
-		vPecas[14].setBounds(50,500, 150,30);
-		
-		
-		setPecas();
-		
-	}
-	
 	private void setPecas() {
-		vPecas[0].setLocation(50,100);
-		vPecas[1].setLocation(185,100);
-		vPecas[2].setLocation(320,100);
-		vPecas[3].setLocation(455,100);				
-		vPecas[4].setLocation(590,100);				
 		
-		vPecas[5].setLocation(50,200);
-		vPecas[6].setLocation(185,200);
+		vPecas1 = j1.getMyPieces();
+		vPecas2 = j2.getMyPieces();
 		
-		vPecas[7].setLocation(50,300);
-		vPecas[8].setLocation(185,300);
-		vPecas[9].setLocation(320,300);
-		vPecas[10].setLocation(455,300);				
+		for(int i =0 ; i< 15 ; i++)
+		{
+			vPecas1[i].addObserver(this);
+			vPecas2[i].addObserver(this);
+		}
 		
-		vPecas[11].setLocation(50,400);		
-		vPecas[12].setLocation(185,400);
-		vPecas[13].setLocation(320,400);
-		
-		vPecas[14].setLocation(50,500);
 	    
-		container.add(vPecas[0],0);
-	    container.add(vPecas[1],1);
-	    container.add(vPecas[2],2);
-	    container.add(vPecas[3],3);
-	    container.add(vPecas[4],4);
-	    container.add(vPecas[5],5);
-	    container.add(vPecas[6],6);
-	    container.add(vPecas[7],7);
-	    container.add(vPecas[8],8);
-	    container.add(vPecas[9],9);
-	    container.add(vPecas[10],10);
-	    container.add(vPecas[11],11);
-	    container.add(vPecas[12],12);
-	    container.add(vPecas[13],13);
-	    container.add(vPecas[14],14);
+		vPecas1[0].setBounds(50,100, 100,70);
+		vPecas1[1].setBounds(185,100, 100,70);
+		vPecas1[2].setBounds(320,100, 100,70);
+		vPecas1[3].setBounds(455,100, 100,70);				
+		vPecas1[4].setBounds(590,100, 100,70);				
+		
+		vPecas1[5].setBounds(50,200, 120,30);
+		vPecas1[6].setBounds(185,200, 120,30);
+		
+		vPecas1[7].setBounds(50,300, 30,30);
+		vPecas1[8].setBounds(185,300, 30,30);
+		vPecas1[9].setBounds(320,300, 30,30);
+		vPecas1[10].setBounds(455,300, 30,30);				
+		
+		vPecas1[11].setBounds(50,400, 60,30);		
+		vPecas1[12].setBounds(185,400, 60,30);
+		vPecas1[13].setBounds(320,400, 60,30);
+		
+		vPecas1[14].setBounds(50,500, 150,30);
+
+		
+		
+		vPecas2[0].setBounds(50,100, 100,70);
+		vPecas2[1].setBounds(185,100, 100,70);
+		vPecas2[2].setBounds(320,100, 100,70);
+		vPecas2[3].setBounds(455,100, 100,70);				
+		vPecas2[4].setBounds(590,100, 100,70);				
+		
+		vPecas2[5].setBounds(50,200, 120,30);
+		vPecas2[6].setBounds(185,200, 120,30);
+		
+		vPecas2[7].setBounds(50,300, 30,30);
+		vPecas2[8].setBounds(185,300, 30,30);
+		vPecas2[9].setBounds(320,300, 30,30);
+		vPecas2[10].setBounds(455,300, 30,30);				
+		
+		vPecas2[11].setBounds(50,400, 60,30);		
+		vPecas2[12].setBounds(185,400, 60,30);
+		vPecas2[13].setBounds(320,400, 60,30);
+		
+		vPecas2[14].setBounds(50,500, 150,30);
+		
+		
+		
+		vPecas1[0].setLocation(50,100);
+		vPecas1[1].setLocation(185,100);
+		vPecas1[2].setLocation(320,100);
+		vPecas1[3].setLocation(455,100);				
+		vPecas1[4].setLocation(590,100);				
+		
+		vPecas1[5].setLocation(50,200);
+		vPecas1[6].setLocation(185,200);
+		
+		vPecas1[7].setLocation(50,300);
+		vPecas1[8].setLocation(185,300);
+		vPecas1[9].setLocation(320,300);
+		vPecas1[10].setLocation(455,300);				
+		
+		vPecas1[11].setLocation(50,400);		
+		vPecas1[12].setLocation(185,400);
+		vPecas1[13].setLocation(320,400);
+		
+		vPecas1[14].setLocation(50,500);
+	    
+		
+		vPecas2[0].setLocation(50,100);
+		vPecas2[1].setLocation(185,100);
+		vPecas2[2].setLocation(320,100);
+		vPecas2[3].setLocation(455,100);				
+		vPecas2[4].setLocation(590,100);				
+		
+		vPecas2[5].setLocation(50,200);
+		vPecas2[6].setLocation(185,200);
+		
+		vPecas2[7].setLocation(50,300);
+		vPecas2[8].setLocation(185,300);
+		vPecas2[9].setLocation(320,300);
+		vPecas2[10].setLocation(455,300);				
+		
+		vPecas2[11].setLocation(50,400);		
+		vPecas2[12].setLocation(185,400);
+		vPecas2[13].setLocation(320,400);
+		
+		vPecas2[14].setLocation(50,500);
+	    
+
+		for (int i =0 ; i<15 ; i++)
+		{
+			container.add(vPecas1[i],i);
+			container.add(vPecas2[i],i);
+		}
+
 	}
 }
