@@ -11,6 +11,10 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	int iClick,jClick;
 	Celula tab1[][]=new Celula[15][15];
 	Celula tab2[][]=new Celula[15][15];
+	
+	
+	
+	
 	Jogador j1;
 	Jogador j2;
 	//Jogador jogadores [] ;
@@ -23,7 +27,8 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	JTextField nameTextField2 = new JTextField(20);
     JButton buttonInicio = new JButton("Start");
     JButton buttonInicioAtaque = new JButton("Start Attack");
-    
+    JLabel attackLabel = new JLabel("AAAAAAAAAAAAAAAAAAAAAAAAA");
+
     Battlefield BF1;
     Battlefield BF2;
     JPanel container;
@@ -46,7 +51,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		container.setSize(1400, 700);
 		container.setLayout(null);
 		container.setLocation(0, 0);
-		
+
 		this.setPecas();
 		
 	
@@ -57,6 +62,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		Graphics2D g2d=(Graphics2D) g;
 		
 		if(j1.getMyName() == "stub" || j2.getMyName() == "stub") {
+			
 			g2d.drawString("Jogador 1:", 650, 350);
 			g2d.drawString("Jogador 2:", 650, 400);
 			nameTextField.setBounds(715, 335, 100, 25);
@@ -69,7 +75,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	        buttonInicio.setBounds(670, 450, 100, 40);
 	        buttonInicioAtaque.addActionListener(new AtaqueButton());
 	        buttonInicioAtaque.setBounds(600, 550, 100, 40);
-	        
+			
 	        add(nameTextField);
 	        add(nameTextField2);
 	        add(buttonInicio);
@@ -104,7 +110,9 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				//System.out.println("colocando button");
 				buttonInicioAtaque.setBounds(600, 550, 100, 40);
 				add(buttonInicioAtaque);
-
+				attackLabel.setBounds(450, 600, 300,50);
+		        add(attackLabel);
+		        
 				//MUDAR AQUI A VEZ
 			}
 			else if(vez == 1)
@@ -164,6 +172,8 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		//System.out.println("passando no panel");
 		Object lob[] =(Object[]) o.get();
 		String type = (String) lob[0];
+		System.out.println("Type:");
+		System.out.println(type);
 		if(type.compareTo("regras") == 0) {
 			String [] jogadores = (String [])lob[4];	
 			j1.setMyName(jogadores[0]);
@@ -195,6 +205,32 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 					}
 				}
 			}
+		}
+		else if(type.compareTo("attack-executed") == 0) {
+			System.out.println("Ataque executado");
+			String tipoAcerto = (String)lob[3];
+			if((int)lob[1] == 3) {
+				// PASSAR ATAQUE PARA OUTRO JOGADOR #TODO
+			}
+			
+			if( tipoAcerto.compareTo("agua") == 0) {
+				System.out.println("agua");
+				attackLabel.setText("Água atingida!");
+			}
+			
+			else if( tipoAcerto.compareTo("peca") == 0) {
+				System.out.println("peca");
+				attackLabel.setText("Peça atingida!");
+			}
+			
+			else if( tipoAcerto.compareTo("erro") == 0) {
+				System.out.println("erro");
+				attackLabel.setText("Essa casa ja foi atingida!");
+			}
+			
+			
+			attackLabel.repaint();
+			repaint();
 		}
 	}
 	
