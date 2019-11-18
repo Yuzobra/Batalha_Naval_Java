@@ -117,8 +117,14 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 				for(int i=0;i<15;i++) {
 					for(int j=0;j<15;j++) 
 					{
-
-						 if(mat[i][j] >= 100)
+						
+						if(mat[i][j] == 200)
+						{
+							g2d.setColor(Color.DARK_GRAY);
+							rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
+							g2d.fill(rt);
+						}
+						else if(mat[i][j] >= 100)
 						{
 							g2d.setColor(Color.RED);
 							rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
@@ -136,6 +142,7 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 							rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
 							g2d.fill(rt);
 						}
+						 
 					}
 				}
 			}
@@ -278,15 +285,17 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 		{
 			int celX = (x - 40) / (30 + 5); 
 			int celY = (y - 40) / (30 + 5);
-			
-//			System.out.println("passou no teste");
+			boolean afundou = false;
+			System.out.println("atacando");
 
 //			System.out.println("passou to teste");
 			
 			short estado = ctrl.orderAttack(nomeJog , x, y, numTab);
 			data[0] = "attack-executed";
-
-			if(estado != 0) // Nao atingiu pe�a
+			
+			System.out.printf("estado do ataque: %d\n", estado);
+			
+			if(estado == 0) // Nao atingiu pe�a
 			{
 				ataques++; 	 
 				data[1] = ataques;
@@ -296,11 +305,11 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 				for(Observer o:lob)
 					o.notify(this);
 			}
-			
-			
 			else if(estado == 1) // Atingiu uma peca
 			{
+				System.out.println("entrando no if");
 				tab[celY][celX].setEstado(Estado.Atacado); 
+				afundou = ctrl.checaPecaAfundada(numTab, x, y);
 				ataques++;
 				data[1] = ataques;
 				data[2] = numTab;
@@ -312,6 +321,7 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 			else // Atacou uma celula j� atacada
 			{
 				tab[celY][celX].setEstado(Estado.Erro);
+				
 				data[1] = ataques;
 				data[2] = numTab;
 				data[3] = "erro";
@@ -323,8 +333,11 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 			if(ataques == 3) {
 				ataques = 0;
 			}
-			ctrl.checaVencedor(numTab);
 			
+			if(afundou)
+			{
+				ctrl.checaVencedor(numTab);
+			}
 			repaint();
 
 		}

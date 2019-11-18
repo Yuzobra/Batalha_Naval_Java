@@ -48,4 +48,9 @@ public class Fachada {
 	{
 		return ctrl.checaVencedor(vez);
 	}
+	
+	public boolean checaPecaAfundada(int numTab, int posX , int posY)
+	{
+		return ctrl.checaPecaAfundada(numTab, posX, posY);
+	}
 }
