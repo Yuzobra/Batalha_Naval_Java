@@ -90,8 +90,12 @@ public class CtrlRegras implements Observable {
 	{
 		int [][] tabuleiro;		
 
-		System.out.printf("posX : %d  posY: %d \n", posX,posY);
-		// AKI YURI
+		int celX = (posX - 40) / (30 + 5); //posIni = 40 && larg = 40 && espLinha = 5
+		int celY = (posY - 40) / (30 + 5); //posIni = 40 && alt = 40 && espLinha = 5
+		
+		System.out.printf("posX : %d  posY: %d celX: %d celY: %d\n", posX,posY, celX, celY);
+		
+
 		
 		
 		// 1 -> Possui uma peca nao atacada
