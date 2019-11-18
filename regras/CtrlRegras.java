@@ -17,8 +17,8 @@ public class CtrlRegras implements Observable {
 		int i, j;
 		for(i = 0; i < 15;i++){
 			for(j = 0; j < 15;j++){
-				this.tabuleiro1[i][j] = 0;
-				this.tabuleiro2[i][j] = 0;
+				this.tabuleiro1[i][j] = -1;
+				this.tabuleiro2[i][j] = -1;
 			}	
 		}
 		this.jog1 = "";
@@ -33,17 +33,18 @@ public class CtrlRegras implements Observable {
 			return tabuleiro2;
 	}
 	
-	public void setValor(int i, int j, short numTab) {
+	public void setValor(int i, int j, short numTab , int numPeca) {
 		
+		System.out.printf("setou celula com  id : %d\n",numPeca); 
 		if(numTab == 1) {
-			if (this.tabuleiro1[j][i] == 0) {
-				this.tabuleiro1[j][i] = 1;
+			if (this.tabuleiro1[j][i] == -1) {
+				this.tabuleiro1[j][i] = numPeca;
 				return;
 			}	
 		}
 		else {
-			if (this.tabuleiro2[j][i] == 0) {
-				this.tabuleiro2[j][i] = 1;
+			if (this.tabuleiro2[j][i] == -1) {
+				this.tabuleiro2[j][i] = numPeca;
 				return;
 			}	
 		}
@@ -73,16 +74,18 @@ public class CtrlRegras implements Observable {
 	
 	public boolean verificaConflito(int posX , int posY, short numTab) {
 		int [][] tabuleiro;		
-
+		
 		if(numTab == 1) {
 			tabuleiro = this.tabuleiro1;
 		}
 		else {
 			tabuleiro = this.tabuleiro2;
 		}
-		if(tabuleiro[posY][posX] != 0) {
+		if(tabuleiro[posY][posX] != -1) {
+			System.out.println("achou conflito");
 			return false;
 		}
+		System.out.println("não achou conflito");
 		return true;
 	}
 	
@@ -93,7 +96,8 @@ public class CtrlRegras implements Observable {
 		int celX = (posX - 40) / (30 + 5); //posIni = 40 && larg = 30 && espLinha = 5
 		int celY = (posY - 40) / (30 + 5); //posIni = 40 && alt = 30 && espLinha = 5
 		
-		System.out.printf("posX : %d  posY: %d celX: %d celY: %d\n", posX,posY, celX, celY);
+		//System.out.printf("posX : %d  posY: %d celX: %d celY: %d\n", posX,posY, celX, celY);
+		
 		
 		
 		// 1 -> Possui uma peca nao atacada
@@ -108,16 +112,18 @@ public class CtrlRegras implements Observable {
 			tabuleiro = this.tabuleiro2;
 		}
 		
-		if(tabuleiro[celY][celX] == 1 ) 
+		System.out.printf("estado atual da celula : %d\n" , tabuleiro[celY][celX]);
+		
+		if(tabuleiro[celY][celX] >= 0 ) 
 		{
-			System.out.println("configurando celula como atacada");
+			//System.out.println("configurando celula como atacada");
 			tabuleiro[celY][celX] = -2;
 			return 1;
 		}
-		else if(tabuleiro[celY][celX] == 0)
+		else if(tabuleiro[celY][celX] == -1)
 		{
-			System.out.println("configurando celula como erro");
-			tabuleiro[celY][celX] = 3;
+			//System.out.println("configurando celula como erro");
+			tabuleiro[celY][celX] = -3;
 			return -1;
 		}
 		

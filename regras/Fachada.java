@@ -27,8 +27,8 @@ public class Fachada {
 		ctrl.addObserver(o);
 	}
 	
-	public void setValor(int x,int y,short numTab) {
-		ctrl.setValor(x, y, numTab);
+	public void setValor(int x,int y,short numTab, int numPeca) {
+		ctrl.setValor(x, y, numTab, numPeca);
 	}
 	
 	public void setJogadores(String jog1, String jog2) {

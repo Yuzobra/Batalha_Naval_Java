@@ -201,6 +201,7 @@ public class Peca extends JPanel implements MouseListener, MouseMotionListener, 
 		if(e.getButton() == MouseEvent.BUTTON3) {
            this.viraPeca();
           }
+	
 	}
 
 	@Override
@@ -208,7 +209,7 @@ public class Peca extends JPanel implements MouseListener, MouseMotionListener, 
 		// TODO Auto-generated method stub
 			pressedX = e.getX();
 			pressedY = e.getY();
-			
+			//System.out.printf("numero da peça: %d", this.numPeca);
 		
 	}
 

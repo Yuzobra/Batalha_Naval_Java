@@ -90,12 +90,15 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 			g2d.drawString(String.valueOf(i),(int)(xIni +(i*(larg+espLinha))+(larg*0.5)),(int)(yIni-7));
 		}
 		
-		
+		//System.out.println("desenhando a parada ");
 		
 		if(AttackMode == false) {
 			for(int i=0;i<15;i++) {
 				for(int j=0;j<15;j++) {
-					if(mat[i][j]!=0) {
+					//System.out.println("modo de ataque falso");
+					if(mat[i][j] != -1) 
+					{
+						//System.out.println("dando merda onde vc espera");
 						if(numTab == 1)
 							g2d.setPaint(Color.YELLOW);
 						else
@@ -122,7 +125,7 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 							rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
 							g2d.fill(rt);
 						}
-						else if(mat[i][j] == 3)
+						else if(mat[i][j] == -3)
 						{
 							g2d.setColor(Color.BLUE);
 							rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
@@ -142,7 +145,7 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 				System.out.println("começando ataque");
 				for(int i=0;i<15;i++) {
 					for(int j=0;j<15;j++) {
-						if(mat[i][j]!=0) 
+						if(mat[i][j]!=-1) 
 						{
 							if(numTab == 1)
 								{g2d.setPaint(Color.YELLOW);}
@@ -173,14 +176,15 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 		this.nomeJog = jogador.getMyName();
 	}
 	
-	public Boolean setPeca(int[][] peca, int x, int y, int offsetX, int offsetY) {
+	public Boolean setPeca(int[][] peca, int x, int y, int offsetX, int offsetY, int numPeca) {
 		/* Returns true if you are able to add peca to the battlefield */
+		System.out.println("ta sendo chamada neh");
 		int[][] tabuleiro = ctrl.getMatriz(numTab);
 		int posX = (int)((x/(espLinha+larg))) - 1;
 		int posY = (int)((y/(espLinha+alt))) - 1;
 		
 		
-		
+		System.out.println("deu merda pra baixo");
 		
 		for(int i = 0; i < peca.length; i++) {
 			for(int j = 0; j < peca[i].length; j++) {
@@ -195,11 +199,13 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 			}
 		}
 		
+		System.out.println("deu merda pra baixo 2");
+		
 		if((x > xIni && x < xIni + 15*(larg+espLinha)) && (y > 0 && y < 16*(alt+espLinha))) {
 			for(int i = 0; i < peca.length; i++) {
 				for(int j = 0; j < peca[i].length; j++) {
 					if(peca[i][j] != 0) {
-						ctrl.setValor(posX+j-offsetX,posY+i-offsetY, numTab);
+						ctrl.setValor(posX+j-offsetX,posY+i-offsetY, numTab , numPeca );
 					}
 				}
 			}

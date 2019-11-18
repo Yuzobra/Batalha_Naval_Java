@@ -182,10 +182,10 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		}
 		else if(type.compareTo("movement-released") == 0) {
 			if((int)lob[1] > (int)(700 + xIni) && (int)lob[2] > (int)yIni) {
-
+				
 				//AJEITAR ISSO:
 				if(!jog1Posicionado) {
-					if(BF1.setPeca((int[][])lob[5], (int)lob[1] - 700, (int)lob[2],(int)lob[3],(int)lob[4])) {
+					if(BF1.setPeca((int[][])lob[5], (int)lob[1] - 700, (int)lob[2],(int)lob[3],(int)lob[4], (int) lob[6])) {
 
 						container.remove(vPecas1[(int)lob[6]]);
 					}	
@@ -196,7 +196,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				
 				}
 				else if(!jog2Posicionado){					
-					if(BF2.setPeca((int[][])lob[5], (int)lob[1] - 700, (int)lob[2],(int)lob[3],(int)lob[4])) {
+					if(BF2.setPeca((int[][])lob[5], (int)lob[1] - 700, (int)lob[2],(int)lob[3],(int)lob[4], (int) lob[6])) {
 						container.remove(vPecas2[(int)lob[6]]);
 					}
 					if(container.getComponentCount() == 1) {
