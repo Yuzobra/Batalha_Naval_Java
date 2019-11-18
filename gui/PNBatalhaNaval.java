@@ -33,10 +33,12 @@ public class PNBatalhaNaval extends JPanel implements Observer {
     Battlefield BF2;
     JPanel container;
     
+    
+    
     Peca vPecas1[];
     Peca vPecas2[];
     
-    boolean jog1Posicionado = false, jog2Posicionado = false;
+    boolean jog1Posicionado = false, jog2Posicionado = false, attackEnded = true;
 	
 
 	public PNBatalhaNaval(Fachada f) {
@@ -44,6 +46,9 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		Fachada.getFachada().register(this);
 		BF1 = new Battlefield(xIni, yIni, (short)1, Fachada.getFachada());
 		BF2 = new Battlefield(xIni, yIni, (short)2, Fachada.getFachada());
+		BF1.addObserver(this);
+		BF2.addObserver(this);
+		
 		j1 = Jogador.criaJogador("stub", 1);
 		j2 = Jogador.criaJogador("stub", 2);
 		//jogadores = new Jogador [] {j1,j2};
@@ -107,24 +112,40 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				BF2.setAttackMode();
 				container.add(BF1,0);
 				container.add(BF2,1);
-				//System.out.println("colocando button");
 				buttonInicioAtaque.setBounds(600, 550, 100, 40);
 				add(buttonInicioAtaque);
+				
 				attackLabel.setBounds(450, 600, 300,50);
-		        add(attackLabel);
+		        container.add(attackLabel,2);
 		        
-				//MUDAR AQUI A VEZ
 			}
+			
+			
+			
+			//TIRAR OQ TA DENTRO DAS CHAVES #TODO
 			else if(vez == 1)
 			{
+//				BF1.setAttackMode();
+//				BF2.setAttackMode();
+//				add(buttonInicioAtaque);
 				
+
+//				attackLabel.setBounds(450, 600, 300,50);
+//		        container.add(attackLabel,2);
+		        
 			}
 			else if(vez == 2)
 			{
+//				BF1.setAttackMode();
+//				BF2.setAttackMode();
+//				add(buttonInicioAtaque);
 				
+
+//				attackLabel.setBounds(450, 600, 300,50);
+//		        container.add(attackLabel,2);        
 			}
 		    add(container);
-		    
+//		    container.repaint();
 		}		
 	}
 	
@@ -141,8 +162,18 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 
 	class AtaqueButton implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("clicando");
-			setAttack(j1);
+			remove(buttonInicioAtaque);
+			if(attackEnded == true) {
+				attackEnded = false;
+				if(vez == 1) {		
+					System.out.println("SET ATTACK COM O JOGADOR 2");
+					setAttack(j2);
+				}
+				else {
+					System.out.println("SET ATTACK COM O JOGADOR 1");
+					setAttack(j1);
+				}
+			}
 	    }
 	}
 
@@ -153,16 +184,19 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		{
 			vez=1;
 			BF1.setHidden(false);
+			BF2.setHidden(true);
+			BF1.isUnderAttack = false;
 			BF2.isUnderAttack = true;
-			System.out.printf("bf1 agora tem isHidden: %b\n", BF1.isHidden());
-			System.out.printf("bf1 settado falso e mandado pro repaint\n");
+
 			BF1.repaint();
 		}
 		else
 		{
 			vez = 2;
+			BF1.setHidden(true);
 			BF2.setHidden(false);
 			BF1.isUnderAttack = true;
+			BF2.isUnderAttack = false;
 			BF2.repaint();
 		}
 		//repaint();
@@ -172,8 +206,6 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		//System.out.println("passando no panel");
 		Object lob[] =(Object[]) o.get();
 		String type = (String) lob[0];
-		System.out.println("Type:");
-		System.out.println(type);
 		if(type.compareTo("regras") == 0) {
 			String [] jogadores = (String [])lob[4];	
 			j1.setMyName(jogadores[0]);
@@ -209,28 +241,40 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		else if(type.compareTo("attack-executed") == 0) {
 			System.out.println("Ataque executado");
 			String tipoAcerto = (String)lob[3];
-			if((int)lob[1] == 3) {
+			if((int)lob[1] == 2) {
 				// PASSAR ATAQUE PARA OUTRO JOGADOR #TODO
+				System.out.println("3 ataques");
+				BF1.setAttackMode();
+				BF2.setAttackMode();
+				BF1.isUnderAttack = false;
+				BF2.isUnderAttack = false;
+				attackEnded = true;
+				add(buttonInicioAtaque);
+				repaint();
 			}
 			
+			
+			
+			// #TODO CONSERTAR ESSES SETTEXT QUE N FUNCIONAM
 			if( tipoAcerto.compareTo("agua") == 0) {
-				System.out.println("agua");
-				attackLabel.setText("Água atingida!");
+				
+//				attackLabel.setText("Água atingida!");
+//				attackLabel = "Água atingida!";
 			}
 			
 			else if( tipoAcerto.compareTo("peca") == 0) {
-				System.out.println("peca");
-				attackLabel.setText("Peça atingida!");
+//				attackLabel.setText("Peça atingida!");
+//				attackLabel = "Peça atingida!";
 			}
 			
 			else if( tipoAcerto.compareTo("erro") == 0) {
-				System.out.println("erro");
-				attackLabel.setText("Essa casa ja foi atingida!");
+//				attackLabel.setText("Essa casa ja foi atingida!");
+//				attackLabel = "Essa casa ja foi atingida!";
 			}
 			
 			
-			attackLabel.repaint();
-			repaint();
+			
+			
 		}
 	}
 	

@@ -93,7 +93,6 @@ public class CtrlRegras implements Observable {
 		int celX = (posX - 40) / (30 + 5); //posIni = 40 && larg = 30 && espLinha = 5
 		int celY = (posY - 40) / (30 + 5); //posIni = 40 && alt = 30 && espLinha = 5
 		
-		System.out.printf("posX : %d  posY: %d celX: %d celY: %d\n", posX,posY, celX, celY);
 		
 		
 		// 1 -> Possui uma peca nao atacada
@@ -110,13 +109,12 @@ public class CtrlRegras implements Observable {
 		
 		if(tabuleiro[celY][celX] == 1 ) 
 		{
-			System.out.println("configurando celula como atacada");
+
 			tabuleiro[celY][celX] = 2;
 			return 1;
 		}
 		else if(tabuleiro[celY][celX] == 0)
 		{
-			System.out.println("configurando celula como erro");
 			tabuleiro[celY][celX] = 3;
 			return -1;
 		}
