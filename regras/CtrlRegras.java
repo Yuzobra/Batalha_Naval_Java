@@ -133,12 +133,11 @@ public class CtrlRegras implements Observable {
 	}
 	
 	
-	public boolean checaVencedor(int vez)
+	public boolean checaVencedor(int numTab)
 	{
-		
 		int [][] tabuleiro;	
 		int contador = 0;
-		if(vez == 2) {
+		if(numTab == 1) {
 			tabuleiro = this.tabuleiro1;
 		}
 		else {
@@ -157,7 +156,7 @@ public class CtrlRegras implements Observable {
 		
 		if(contador == 38)
 		{
-			System.out.println("deu certo porra");
+			
 			return true;
 		}
 		else

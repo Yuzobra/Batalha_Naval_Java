@@ -289,10 +289,11 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 			{
 				
 				data[3] = "agua";
-				ataques++;
+				ataques++; 	 
 				for(Observer o:lob)
 					o.notify(this);
 			}
+			
 			
 			else if(estado == 1) // Atingiu uma peca
 			{
@@ -313,6 +314,8 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 			if(ataques == 3) {
 				ataques = 0;
 			}
+			ctrl.checaVencedor(numTab);
+			
 			repaint();
 
 		}
