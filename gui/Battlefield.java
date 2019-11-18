@@ -23,7 +23,7 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 	private boolean AttackMode = false;
 	private boolean isHidden = false;
 	public boolean isUnderAttack = false;
-	private int ataques = 3;
+	private int ataques = 0;
 	int pressedX=0 , pressedY=0;
 	List<Observer> lob=new ArrayList<Observer>();
 	Object data[] = new Object[5]; 
@@ -114,7 +114,6 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 			//System.out.printf("entro no else com isHidden: %b ", this.isHidden);
 			if(isHidden == true)
 			{
-				System.out.println("escondendo");
 				for(int i=0;i<15;i++) {
 					for(int j=0;j<15;j++) 
 					{
@@ -219,6 +218,7 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 
 		this.AttackMode = true;
 		this.isHidden = true;
+		ataques = 0;
 		repaint();
 	}
 	
@@ -291,9 +291,10 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 			data[0] = "attack-executed";
 			data[1] = ataques;
 			data[2] = numTab;
+			System.out.println("Quantidade de ataques:");
+			System.out.println(ataques);
 			if(estado != 0) // Nao atingiu peça
 			{
-				
 				data[3] = "agua";
 				ataques++; 	 
 				for(Observer o:lob)

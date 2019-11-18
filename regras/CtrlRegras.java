@@ -85,7 +85,7 @@ public class CtrlRegras implements Observable {
 			System.out.println("achou conflito");
 			return false;
 		}
-		System.out.println("não achou conflito");
+		System.out.println("nï¿½o achou conflito");
 		return true;
 	}
 	
