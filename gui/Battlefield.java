@@ -116,7 +116,7 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 					for(int j=0;j<15;j++) 
 					{
 
-						 if(mat[i][j] == 2)
+						 if(mat[i][j] == -2)
 						{
 							g2d.setColor(Color.RED);
 							rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);

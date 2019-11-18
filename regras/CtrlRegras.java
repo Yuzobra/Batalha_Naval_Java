@@ -111,7 +111,7 @@ public class CtrlRegras implements Observable {
 		if(tabuleiro[celY][celX] == 1 ) 
 		{
 			System.out.println("configurando celula como atacada");
-			tabuleiro[celY][celX] = 2;
+			tabuleiro[celY][celX] = -2;
 			return 1;
 		}
 		else if(tabuleiro[celY][celX] == 0)
@@ -131,6 +131,42 @@ public class CtrlRegras implements Observable {
 		
 		return 0;
 	}
+	
+	
+	public boolean checaVencedor(int vez)
+	{
+		
+		int [][] tabuleiro;	
+		int contador = 0;
+		if(vez == 2) {
+			tabuleiro = this.tabuleiro1;
+		}
+		else {
+			tabuleiro = this.tabuleiro2;
+		}
+		
+		for(int i = 0; i < 15;i++){
+			for(int j = 0; j < 15;j++){
+				if(tabuleiro[i][j] == -2)
+				{
+					contador++;
+				}
+				
+			}	
+		}
+		
+		if(contador == 38)
+		{
+			System.out.println("deu certo porra");
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}	
+	
+	
 	
 	public void addObserver(Observer o) {
 		lob.add(o);
