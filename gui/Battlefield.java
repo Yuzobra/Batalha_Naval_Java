@@ -297,13 +297,16 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 			
 			if(estado == 0) // Nao atingiu pe�a
 			{
-				ataques++; 	 
+				 	 
+				tab[celY][celX].setEstado(Estado.Erro);
+				
 				data[1] = ataques;
 				data[2] = numTab;
-				data[3] = "agua";
+				data[3] = "erro";
 				
 				for(Observer o:lob)
 					o.notify(this);
+				
 			}
 			else if(estado == 1) // Atingiu uma peca
 			{
@@ -320,11 +323,10 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 			}
 			else // Atacou uma celula j� atacada
 			{
-				tab[celY][celX].setEstado(Estado.Erro);
-				
+				ataques++;
 				data[1] = ataques;
 				data[2] = numTab;
-				data[3] = "erro";
+				data[3] = "agua";
 				
 				for(Observer o:lob)
 					o.notify(this);
