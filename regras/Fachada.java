@@ -43,4 +43,9 @@ public class Fachada {
 	{
 		return ctrl.orderAttack(jog, posX, posY, numTab);
 	}
+	
+	public boolean checaVencedor(int vez)
+	{
+		return ctrl.checaVencedor(vez);
+	}
 }

@@ -115,7 +115,7 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 					for(int j=0;j<15;j++) 
 					{
 
-						 if(mat[i][j] == 2)
+						 if(mat[i][j] == -2)
 						{
 							g2d.setColor(Color.RED);
 							rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
@@ -212,6 +212,7 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 
 		this.AttackMode = true;
 		this.isHidden = true;
+		ataques = 0;
 		repaint();
 	}
 	
@@ -288,12 +289,12 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 			System.out.println(ataques);
 			if(estado != 0) // Nao atingiu peça
 			{
-				
 				data[3] = "agua";
-				ataques++;
+				ataques++; 	 
 				for(Observer o:lob)
 					o.notify(this);
 			}
+			
 			
 			else if(estado == 1) // Atingiu uma peca
 			{
@@ -314,6 +315,8 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 			if(ataques == 3) {
 				ataques = 0;
 			}
+			ctrl.checaVencedor(numTab);
+			
 			repaint();
 
 		}
