@@ -108,7 +108,7 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 		}
 		else
 		{
-			System.out.printf("entro no else com isHidden: %b ", this.isHidden);
+			//System.out.printf("entro no else com isHidden: %b ", this.isHidden);
 			if(isHidden == true)
 			{
 				System.out.println("escondendo");
@@ -260,7 +260,7 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 		{
 			if(isUnderAttack == true)
 			{
-				System.out.println("recebendo ");
+				//System.out.println("recebendo ");
 				pressedX = e.getX();
 				pressedY = e.getY();
 				
@@ -278,7 +278,7 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 			int celX = (x - 40) / (30 + 5); 
 			int celY = (y - 40) / (30 + 5);
 			
-			System.out.println("passou to teste");
+			//System.out.println("passou to teste");
 			
 			short estado = ctrl.orderAttack(nomeJog , x, y, numTab);
 			
