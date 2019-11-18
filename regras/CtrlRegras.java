@@ -35,7 +35,7 @@ public class CtrlRegras implements Observable {
 	
 	public void setValor(int i, int j, short numTab , int numPeca) {
 		
-		System.out.printf("setou celula com  id : %d\n",numPeca); 
+		//System.out.printf("setou celula com  id : %d\n",numPeca); 
 		if(numTab == 1) {
 			if (this.tabuleiro1[j][i] == -1) {
 				this.tabuleiro1[j][i] = numPeca;
@@ -71,7 +71,6 @@ public class CtrlRegras implements Observable {
 			o.notify(this);
 	}
 
-	
 	public boolean verificaConflito(int posX , int posY, short numTab) {
 		int [][] tabuleiro;		
 		
@@ -82,10 +81,10 @@ public class CtrlRegras implements Observable {
 			tabuleiro = this.tabuleiro2;
 		}
 		if(tabuleiro[posY][posX] != -1) {
-			System.out.println("achou conflito");
+			//System.out.println("achou conflito");
 			return false;
 		}
-		System.out.println("n�o achou conflito");
+		//System.out.println("n�o achou conflito");
 		return true;
 	}
 	
@@ -116,13 +115,14 @@ public class CtrlRegras implements Observable {
 		
 		if(tabuleiro[celY][celX] >= 0 ) 
 		{
-			//System.out.println("configurando celula como atacada");
-			tabuleiro[celY][celX] = -2;
+			
+			tabuleiro[celY][celX] = tabuleiro[celY][celX] + 100;
+			System.out.printf("configurando celula como atacada com valor: %d\n" ,tabuleiro[celY][celX]);
 			return 1;
 		}
 		else if(tabuleiro[celY][celX] == -1)
 		{
-			//System.out.println("configurando celula como erro");
+			System.out.println("configurando celula como erro");
 			tabuleiro[celY][celX] = -3;
 			return -1;
 		}
@@ -137,7 +137,37 @@ public class CtrlRegras implements Observable {
 		
 		return 0;
 	}
+
 	
+	public boolean checaPecaAfundada(int numTab, int numPeca)
+	{
+		int [][] tabuleiro;	
+		if(numTab == 1) {
+			tabuleiro = this.tabuleiro1;
+		}
+		else {
+			tabuleiro = this.tabuleiro2;
+		}
+		
+		for(int i = 0; i < 15;i++){
+			for(int j = 0; j < 15;j++){
+				if(tabuleiro[i][j] == numPeca)
+				{
+					return false; 					
+				}				
+			}
+		}
+		
+		for(int i = 0; i < 15;i++){
+			for(int j = 0; j < 15;j++){
+				if(tabuleiro[i][j] == numPeca + 100)
+				{
+					tabuleiro[i][j] = 200;					
+				}				
+			}
+		}
+		return true;
+	}
 	
 	public boolean checaVencedor(int numTab)
 	{
@@ -152,7 +182,7 @@ public class CtrlRegras implements Observable {
 		
 		for(int i = 0; i < 15;i++){
 			for(int j = 0; j < 15;j++){
-				if(tabuleiro[i][j] == -2)
+				if(tabuleiro[i][j] == 200)
 				{
 					contador++;
 				}
