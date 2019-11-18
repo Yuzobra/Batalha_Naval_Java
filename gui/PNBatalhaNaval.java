@@ -104,7 +104,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				//System.out.println("colocando button");
 				buttonInicioAtaque.setBounds(600, 550, 100, 40);
 				add(buttonInicioAtaque);
-				
+
 				//MUDAR AQUI A VEZ
 			}
 			else if(vez == 1)
