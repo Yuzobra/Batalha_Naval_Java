@@ -141,7 +141,7 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 			}
 			else
 			{
-				System.out.println("começando ataque");
+
 				for(int i=0;i<15;i++) {
 					for(int j=0;j<15;j++) {
 						if(mat[i][j] >= 0) 
@@ -177,13 +177,11 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 	
 	public Boolean setPeca(int[][] peca, int x, int y, int offsetX, int offsetY, int numPeca) {
 		/* Returns true if you are able to add peca to the battlefield */
-		//System.out.println("ta sendo chamada neh");
 		int[][] tabuleiro = ctrl.getMatriz(numTab);
 		int posX = (int)((x/(espLinha+larg))) - 1;
 		int posY = (int)((y/(espLinha+alt))) - 1;
 		
 		
-		//System.out.println("deu merda pra baixo");
 		
 		for(int i = 0; i < peca.length; i++) {
 			for(int j = 0; j < peca[i].length; j++) {
@@ -197,8 +195,6 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 				}
 			}
 		}
-		
-	//	System.out.println("deu merda pra baixo 2");
 		
 		if((x > xIni && x < xIni + 15*(larg+espLinha)) && (y > 0 && y < 16*(alt+espLinha))) {
 			for(int i = 0; i < peca.length; i++) {
@@ -285,18 +281,18 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 			
 //			System.out.println("passou no teste");
 
-			//System.out.println("passou to teste");
+//			System.out.println("passou to teste");
 			
 			short estado = ctrl.orderAttack(nomeJog , x, y, numTab);
 			data[0] = "attack-executed";
-			data[1] = ataques;
-			data[2] = numTab;
-			System.out.println("Quantidade de ataques:");
-			System.out.println(ataques);
-			if(estado != 0) // Nao atingiu peça
+
+			if(estado != 0) // Nao atingiu peï¿½a
 			{
-				data[3] = "agua";
 				ataques++; 	 
+				data[1] = ataques;
+				data[2] = numTab;
+				data[3] = "agua";
+				
 				for(Observer o:lob)
 					o.notify(this);
 			}
@@ -305,19 +301,25 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 			else if(estado == 1) // Atingiu uma peca
 			{
 				tab[celY][celX].setEstado(Estado.Atacado); 
-				data[3] = "peca";
 				ataques++;
+				data[1] = ataques;
+				data[2] = numTab;
+				data[3] = "peca";
+				
 				for(Observer o:lob)
 					o.notify(this);
 			}
-			else // Atacou uma celula já atacada
+			else // Atacou uma celula jï¿½ atacada
 			{
 				tab[celY][celX].setEstado(Estado.Erro);
+				data[1] = ataques;
+				data[2] = numTab;
 				data[3] = "erro";
+				
 				for(Observer o:lob)
 					o.notify(this);
 			}
-			
+
 			if(ataques == 3) {
 				ataques = 0;
 			}
@@ -339,7 +341,6 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 
 	public void setHidden(boolean isHidden) {
 		this.isHidden = isHidden;
-		System.out.printf("Settando %b\n" , isHidden);
 	}
 
 	@Override

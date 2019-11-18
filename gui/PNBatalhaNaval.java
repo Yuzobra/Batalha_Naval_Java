@@ -166,11 +166,9 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			if(attackEnded == true) {
 				attackEnded = false;
 				if(vez == 1) {		
-					System.out.println("SET ATTACK COM O JOGADOR 2");
 					setAttack(j2);
 				}
 				else {
-					System.out.println("SET ATTACK COM O JOGADOR 1");
 					setAttack(j1);
 				}
 			}
@@ -239,11 +237,8 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			}
 		}
 		else if(type.compareTo("attack-executed") == 0) {
-			System.out.println("Ataque executado");
 			String tipoAcerto = (String)lob[3];
-			if((int)lob[1] == 2) {
-				// PASSAR ATAQUE PARA OUTRO JOGADOR #TODO
-				System.out.println("3 ataques");
+			if((int)lob[1] == 3) {
 				BF1.setAttackMode();
 				BF2.setAttackMode();
 				BF1.isUnderAttack = false;
