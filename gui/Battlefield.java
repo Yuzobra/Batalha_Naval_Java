@@ -1,13 +1,18 @@
 package gui;
 
 import javax.swing.*;
+
+import gui.Celula.Estado;
+
 import java.awt.*;
 import java.awt.geom.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.*;
 import regras.*;
  
 
-public class Battlefield extends JPanel implements MouseListener  {
+public class Battlefield extends JPanel implements MouseListener , Observable {
 	private double xIni;
 	private double yIni;
 	private short numTab;
@@ -18,7 +23,9 @@ public class Battlefield extends JPanel implements MouseListener  {
 	private boolean AttackMode = false;
 	private boolean isHidden = false;
 	public boolean isUnderAttack = false;
+	private int ataques = 3;
 	int pressedX=0 , pressedY=0;
+	List<Observer> lob=new ArrayList<Observer>();
 
 	private final double larg=30.0,alt=30.0,espLinha=5.0;
 	
@@ -242,23 +249,28 @@ public class Battlefield extends JPanel implements MouseListener  {
 				pressedX = e.getX();
 				pressedY = e.getY();
 				
-				initAttack(pressedX, pressedY);
+				Attack(pressedX, pressedY);
 			}
 			
 		}
 
 	}
 	
-	public void initAttack(int x , int y)
+	public void Attack(int x , int y)
 	{
 		short estado = ctrl.orderAttack(nomeJog , x, y, numTab);
-		
-		
-		
-		for (int i = 0 ; i < 3 ; i++ )
+		if(estado != 0)
 		{
-			
+			if(estado == 1)
+			{
+				tab[y][x].setEstado(Estado.Atacado); 
+			}
+			else
+			{
+				tab[y][x].setEstado(Estado.Erro);
+			}
 		}
+		
 	}
 	
 	
@@ -273,5 +285,29 @@ public class Battlefield extends JPanel implements MouseListener  {
 	public void setHidden(boolean isHidden) {
 		this.isHidden = isHidden;
 		System.out.printf("Settando %b\n" , isHidden);
+	}
+
+	@Override
+	public void addObserver(Observer o) {
+		// TODO Auto-generated method stub
+		lob.add(o);
+	}
+
+	@Override
+	public void removeObserver(Observer o) {
+		// TODO Auto-generated method stub
+		lob.remove(o);
+	}
+
+	@Override
+	public Object get() {
+		// TODO Auto-generated method stub
+		Object data[] = new Object[5]; 
+		data[0] = "attack-executed";
+		data[1] = this.getX() + pressedX;
+		data[2] = this.getY() + pressedY;
+		data[3] = ataques;
+		data[4] = numTab;
+		return data;
 	}
 }
