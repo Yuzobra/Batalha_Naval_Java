@@ -35,7 +35,6 @@ public class CtrlRegras implements Observable {
 	
 	public void setValor(int i, int j, short numTab , int numPeca) {
 		
-		System.out.printf("setou celula com  id : %d\n",numPeca); 
 		if(numTab == 1) {
 			if (this.tabuleiro1[j][i] == -1) {
 				this.tabuleiro1[j][i] = numPeca;
@@ -82,10 +81,8 @@ public class CtrlRegras implements Observable {
 			tabuleiro = this.tabuleiro2;
 		}
 		if(tabuleiro[posY][posX] != -1) {
-			System.out.println("achou conflito");
 			return false;
 		}
-		System.out.println("n�o achou conflito");
 		return true;
 	}
 	
@@ -112,7 +109,6 @@ public class CtrlRegras implements Observable {
 			tabuleiro = this.tabuleiro2;
 		}
 		
-		System.out.printf("estado atual da celula : %d\n" , tabuleiro[celY][celX]);
 		
 		if(tabuleiro[celY][celX] >= 0 ) 
 		{
@@ -162,7 +158,7 @@ public class CtrlRegras implements Observable {
 		
 		if(contador == 38)
 		{
-			
+			System.out.println("VENCEU");
 			return true;
 		}
 		else
