@@ -108,7 +108,7 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 		}
 		else
 		{
-			System.out.printf("entro no else com isHidden: %b ", this.isHidden);
+			//System.out.printf("entro no else com isHidden: %b ", this.isHidden);
 			if(isHidden == true)
 			{
 				System.out.println("escondendo");
@@ -259,7 +259,7 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 		{
 			if(isUnderAttack == true)
 			{
-				System.out.println("recebendo ");
+				//System.out.println("recebendo ");
 				pressedX = e.getX();
 				pressedY = e.getY();
 				
@@ -278,12 +278,17 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 			int celY = (y - 40) / (30 + 5);
 			
 //			System.out.println("passou no teste");
-			short estado = ctrl.orderAttack(nomeJog , x, y, numTab);
+
+			//System.out.println("passou to teste");
 			
-	
+			short estado = ctrl.orderAttack(nomeJog , x, y, numTab);
+			data[0] = "attack-executed";
+			data[1] = ataques;
+			data[2] = numTab;
 			if(estado != 0) // Nao atingiu peça
 			{
 				
+				data[3] = "agua";
 				for(Observer o:lob)
 					o.notify(this);
 				ataques++;
@@ -292,7 +297,7 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 			else if(estado == 1) // Atingiu uma peca
 			{
 				tab[celY][celX].setEstado(Estado.Atacado); 
-				
+				data[3] = "peca";
 				for(Observer o:lob)
 					o.notify(this);
 				ataques++;
@@ -300,14 +305,12 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 			else // Atacou uma celula já atacada
 			{
 				tab[celY][celX].setEstado(Estado.Erro);
-				
+				data[3] = "erro";
 				for(Observer o:lob)
 					o.notify(this);
 			}
 			
-			data[0] = "attack-executed";
-			data[1] = ataques;
-			data[2] = numTab;
+
 			repaint();
 
 		}

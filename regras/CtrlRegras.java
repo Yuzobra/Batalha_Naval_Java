@@ -37,13 +37,13 @@ public class CtrlRegras implements Observable {
 		
 		if(numTab == 1) {
 			if (this.tabuleiro1[j][i] == 0) {
-				this.tabuleiro1[j][i] = vez;
+				this.tabuleiro1[j][i] = 1;
 				return;
 			}	
 		}
 		else {
 			if (this.tabuleiro2[j][i] == 0) {
-				this.tabuleiro2[j][i] = vez;
+				this.tabuleiro2[j][i] = 1;
 				return;
 			}	
 		}
@@ -114,16 +114,22 @@ public class CtrlRegras implements Observable {
 			tabuleiro[celY][celX] = 2;
 			return 1;
 		}
-		else if(tabuleiro[celY][celX] == 3)
+		else if(tabuleiro[celY][celX] == 0)
 		{
 			System.out.println("configurando celula como erro");
+			tabuleiro[celY][celX] = 3;
 			return -1;
 		}
-		else
-		{
-			tabuleiro[celY][celX] = 3;
-			return 0;
+		
+		
+		if(numTab == 1) {
+			this.tabuleiro1 = tabuleiro  ;
 		}
+		else {
+			this.tabuleiro2 = tabuleiro  ;
+		}
+		
+		return 0;
 	}
 	
 	public void addObserver(Observer o) {
