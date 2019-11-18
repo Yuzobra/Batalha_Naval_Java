@@ -115,11 +115,26 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 				for(int i=0;i<15;i++) {
 					for(int j=0;j<15;j++) 
 					{
-						//System.out.println("pqp desenha krl ");
-						g2d.setColor(Color.CYAN);
-						rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
-						g2d.fill(rt);
-						
+
+						 if(mat[i][j] == 2)
+						{
+							g2d.setColor(Color.RED);
+							rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
+							g2d.fill(rt);
+						}
+						else if(mat[i][j] == 3)
+						{
+							g2d.setColor(Color.BLUE);
+							rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
+							g2d.fill(rt);
+						}
+						else //if(mat[i][j]== 0) 
+						{
+							//System.out.println("pqp desenha krl ");
+							g2d.setColor(Color.CYAN);
+							rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
+							g2d.fill(rt);
+						}
 					}
 				}
 			}
@@ -258,19 +273,30 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 	
 	public void Attack(int x , int y)
 	{
-		short estado = ctrl.orderAttack(nomeJog , x, y, numTab);
-		if(estado != 0)
+		if(x > 40 || y > 40 )
 		{
-			if(estado == 1)
+			int celX = (x - 40) / (30 + 5); 
+			int celY = (y - 40) / (30 + 5);
+			
+			System.out.println("passou to teste");
+			
+			short estado = ctrl.orderAttack(nomeJog , x, y, numTab);
+			
+			
+	
+			if(estado != 0)
 			{
-				tab[y][x].setEstado(Estado.Atacado); 
-			}
-			else
-			{
-				tab[y][x].setEstado(Estado.Erro);
+				if(estado == 1)
+				{
+					tab[celY][celX].setEstado(Estado.Atacado); 
+				}
+				else
+				{
+					tab[celY][celX].setEstado(Estado.Erro);
+				}
+				repaint();
 			}
 		}
-		
 	}
 	
 	
