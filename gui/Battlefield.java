@@ -289,18 +289,18 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 			{
 				
 				data[3] = "agua";
+				ataques++;
 				for(Observer o:lob)
 					o.notify(this);
-				ataques++;
 			}
 			
 			else if(estado == 1) // Atingiu uma peca
 			{
 				tab[celY][celX].setEstado(Estado.Atacado); 
 				data[3] = "peca";
+				ataques++;
 				for(Observer o:lob)
 					o.notify(this);
-				ataques++;
 			}
 			else // Atacou uma celula já atacada
 			{
@@ -310,7 +310,9 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 					o.notify(this);
 			}
 			
-
+			if(ataques == 3) {
+				ataques = 0;
+			}
 			repaint();
 
 		}
@@ -345,8 +347,6 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 	@Override
 	public Object get() {
 		// TODO Auto-generated method stub
-		
-
 		return data;
 	}
 }
