@@ -109,7 +109,7 @@ public class CtrlRegras implements Observable {
 		}
 		
 		
-		if(tabuleiro[celY][celX] >= 0 ) 
+		if(tabuleiro[celY][celX] >= 0 && tabuleiro[celY][celX] < 100 ) 
 		{
 			
 			tabuleiro[celY][celX] = tabuleiro[celY][celX] + 100;
