@@ -91,7 +91,7 @@ public class CtrlRegras implements Observable {
 		int [][] tabuleiro;		
 
 		System.out.printf("posX : %d  posY: %d \n", posX,posY);
-		
+		// AKI YURI
 		
 		
 		// 1 -> Possui uma peca nao atacada
