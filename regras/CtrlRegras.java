@@ -95,8 +95,6 @@ public class CtrlRegras implements Observable {
 		
 		System.out.printf("posX : %d  posY: %d celX: %d celY: %d\n", posX,posY, celX, celY);
 		
-
-		
 		
 		// 1 -> Possui uma peca nao atacada
 		// 2 -> Possui uma peca atacada

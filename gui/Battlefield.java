@@ -26,7 +26,7 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 	private int ataques = 3;
 	int pressedX=0 , pressedY=0;
 	List<Observer> lob=new ArrayList<Observer>();
-
+	Object data[] = new Object[5]; 
 	private final double larg=30.0,alt=30.0,espLinha=5.0;
 	
 	public Battlefield(double xIni, double yIni, short numTab, Fachada f){
@@ -130,7 +130,6 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 						}
 						else //if(mat[i][j]== 0) 
 						{
-							//System.out.println("pqp desenha krl ");
 							g2d.setColor(Color.CYAN);
 							rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
 							g2d.fill(rt);
@@ -273,29 +272,44 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 	
 	public void Attack(int x , int y)
 	{
-		if(x > 40 || y > 40 )
+		if(x > 40 && y > 40 )
 		{
 			int celX = (x - 40) / (30 + 5); 
 			int celY = (y - 40) / (30 + 5);
 			
-			System.out.println("passou to teste");
-			
+//			System.out.println("passou no teste");
 			short estado = ctrl.orderAttack(nomeJog , x, y, numTab);
 			
-			
 	
-			if(estado != 0)
+			if(estado != 0) // Nao atingiu peça
 			{
-				if(estado == 1)
-				{
-					tab[celY][celX].setEstado(Estado.Atacado); 
-				}
-				else
-				{
-					tab[celY][celX].setEstado(Estado.Erro);
-				}
-				repaint();
+				
+				for(Observer o:lob)
+					o.notify(this);
+				ataques++;
 			}
+			
+			else if(estado == 1) // Atingiu uma peca
+			{
+				tab[celY][celX].setEstado(Estado.Atacado); 
+				
+				for(Observer o:lob)
+					o.notify(this);
+				ataques++;
+			}
+			else // Atacou uma celula já atacada
+			{
+				tab[celY][celX].setEstado(Estado.Erro);
+				
+				for(Observer o:lob)
+					o.notify(this);
+			}
+			
+			data[0] = "attack-executed";
+			data[1] = ataques;
+			data[2] = numTab;
+			repaint();
+
 		}
 	}
 	
@@ -328,12 +342,8 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 	@Override
 	public Object get() {
 		// TODO Auto-generated method stub
-		Object data[] = new Object[5]; 
-		data[0] = "attack-executed";
-		data[1] = this.getX() + pressedX;
-		data[2] = this.getY() + pressedY;
-		data[3] = ataques;
-		data[4] = numTab;
+		
+
 		return data;
 	}
 }
