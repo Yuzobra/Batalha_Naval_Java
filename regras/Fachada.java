@@ -53,4 +53,9 @@ public class Fachada {
 	{
 		return ctrl.checaPecaAfundada(numTab, posX, posY);
 	}
+	
+	public void setPadding(short numTab , int numPeca)
+	{
+		ctrl.setPadding(numTab, numPeca);
+	}
 }
