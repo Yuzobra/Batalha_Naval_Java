@@ -201,16 +201,21 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	}
 	
 	public void notify(Observable o) {
-		//System.out.println("passando no panel");
+		
 		Object lob[] =(Object[]) o.get();
 		String type = (String) lob[0];
-		if(type.compareTo("regras") == 0) {
+		
+		
+		 
+		if(type.compareTo("regras") == 0) 
+		{
 			String [] jogadores = (String [])lob[4];	
 			j1.setMyName(jogadores[0]);
 			j2.setMyName(jogadores[1]);
 			repaint();
 		}
-		else if(type.compareTo("movement-released") == 0) {
+		else if(type.compareTo("movement-released") == 0)
+		{
 			if((int)lob[1] > (int)(700 + xIni) && (int)lob[2] > (int)yIni) {
 				
 				//AJEITAR ISSO:
@@ -246,7 +251,11 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				attackEnded = true;
 				add(buttonInicioAtaque);
 				repaint();
-			}
+		}
+		
+
+			
+
 			
 			
 			
@@ -270,6 +279,11 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			
 			
 			
+		}
+		else if(type == "remove")
+		{
+			container.add(vPecas1[(int)lob[1]]);
+			repaint();
 		}
 	}
 	

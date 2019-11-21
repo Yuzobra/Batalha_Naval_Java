@@ -109,7 +109,7 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 					
 					if (mat[i][j] < -1)
 					{
-						g2d.setColor(Color.MAGENTA);
+						g2d.setColor(Color.RED);
 						rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
 						g2d.fill(rt);
 					}
@@ -284,8 +284,36 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 			}
 			
 		}
+		else
+		{
+			
+			int posX = (int)((e.getX()/(espLinha+larg))) - 1;
+			int posY = (int)((e.getY()/(espLinha+alt))) - 1;
+			
+			
+			if(ctrl.verificaPeca(posX, posY, numTab))
+			{
+				this.removePeca(posX, posY, numTab);
+			}
+		}
 
 	}
+	
+	public void removePeca(int posX, int posY, short numTab)
+	{
+		
+		ctrl.removePadding(posX, posY, numTab);
+		int numPeca = ctrl.removePeca(posX, posY, numTab);
+		repaint();
+		
+		data[0] = "remove";
+		data[1] = numPeca ;
+		data[2] = numTab;
+		
+		for(Observer o:lob)
+			o.notify(this);
+	}
+	
 	
 	public void Attack(int x , int y)
 	{

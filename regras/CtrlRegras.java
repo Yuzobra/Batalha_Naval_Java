@@ -51,6 +51,29 @@ public class CtrlRegras implements Observable {
 		passarVez();
 	}	
 	
+	public int removePeca(int posX , int posY, short numTab) 
+	{
+		int [][] tabuleiro;
+		int numPeca = 0;
+		if(numTab == 1) {
+			tabuleiro = this.tabuleiro1;
+		}
+		else {
+			tabuleiro = this.tabuleiro2;
+		}
+		numPeca = tabuleiro[posY][posX];
+		
+		for(int i = 0; i < 15;i++){
+			for(int j = 0; j < 15;j++){
+				if(tabuleiro[i][j] == numPeca)
+				{
+					tabuleiro[i][j]= -1;
+				}
+			}
+		}
+		return numPeca;
+	}
+	
 	public int getVez() {
 		return vez;
 	}	
@@ -83,6 +106,22 @@ public class CtrlRegras implements Observable {
 			return false;
 		}
 		return true;
+	}
+	
+	public boolean verificaPeca(int posX , int posY, short numTab) 
+	{
+		int [][] tabuleiro;		
+		
+		if(numTab == 1) {
+			tabuleiro = this.tabuleiro1;
+		}
+		else {
+			tabuleiro = this.tabuleiro2;
+		}
+		if(tabuleiro[posY][posX] >= 0) {
+			return true;
+		}
+		return false;
 	}
 	
 	public short orderAttack(String jog, int posX , int posY, short numTab)
@@ -225,7 +264,6 @@ public class CtrlRegras implements Observable {
 				{
 					if( j > 0 && j < 14)
 					{
-						System.out.println("entrando aki");
 						if(tabuleiro[i][j-1] <= -1)
 						{
 							tabuleiro[i][j-1] = tabuleiro[i][j-1] - (100+numPeca);
@@ -337,6 +375,136 @@ public class CtrlRegras implements Observable {
 		}
 	}
 	
+	public void removePadding(int posX , int posY, short numTab)
+	{
+		int [][] tabuleiro;	
+		int contador = 0;
+		
+		if(numTab == 1) {
+			tabuleiro = this.tabuleiro1;
+		}
+		else {
+			tabuleiro = this.tabuleiro2;
+		}
+		
+		int numPeca = tabuleiro[posY][posX];
+		
+		for(int i = 0; i < 15;i++){
+			for(int j = 0; j < 15;j++){
+				if(tabuleiro[i][j] == numPeca)
+				{
+					if( j > 0 && j < 14)
+					{
+						if(tabuleiro[i][j-1] <= -1)
+						{
+							tabuleiro[i][j-1] = tabuleiro[i][j-1] + (100+numPeca);
+						}
+						if(tabuleiro[i][j+1] <= -1)
+						{
+							tabuleiro[i][j+1] = tabuleiro[i][j+1] + (100+numPeca);
+						}
+						if(i > 0)
+						{
+							if(tabuleiro[i-1][j-1] <= -1)
+							{
+								tabuleiro[i-1][j-1] = tabuleiro[i-1][j-1] + (100+numPeca);
+							}
+							if(tabuleiro[i-1][j+1] <= -1)
+							{
+								tabuleiro[i-1][j+1] = tabuleiro[i-1][j+1] + (100+numPeca);
+							}							
+						}
+						if(i < 14)
+						{
+							if(tabuleiro[i+1][j-1] <= -1)
+							{
+								tabuleiro[i+1][j-1] = tabuleiro[i+1][j-1] + (100+numPeca);
+							}
+							if(tabuleiro[i+1][j+1] <= -1)
+							{
+								tabuleiro[i+1][j+1] = tabuleiro[i+1][j+1] + (100+numPeca);
+							}							
+						}
+					}
+					else if( j == 0)
+					{
+						if(tabuleiro[i][j+1] <= -1)
+						{
+							tabuleiro[i][j+1] = tabuleiro[i][j+1] + (100+numPeca);
+						}
+						if(i > 0)
+						{
+							if(tabuleiro[i-1][j+1] <= -1)
+							{
+								tabuleiro[i-1][j+1] = tabuleiro[i-1][j+1] + (100+numPeca);
+							}							
+						}
+						if(i < 14)
+						{
+							if(tabuleiro[i+1][j+1] <= -1)
+							{
+								tabuleiro[i+1][j+1] = tabuleiro[i+1][j+1] + (100+numPeca);
+							}							
+						}
+					}
+					else if (j == 14)
+					{
+						if(tabuleiro[i][j-1] <= -1)
+						{
+							tabuleiro[i][j-1] = tabuleiro[i][j-1] + (100+numPeca);
+						}
+						if(i > 0)
+						{
+							if(tabuleiro[i-1][j-1] <= -1)
+							{
+								tabuleiro[i-1][j-1] = tabuleiro[i-1][j-1] + (100+numPeca);
+							}
+						}
+						if(i < 14)
+						{
+							if(tabuleiro[i+1][j-1] <= -1)
+							{
+								tabuleiro[i+1][j-1] = tabuleiro[i+1][j-1] + (100+numPeca);
+							}
+						}
+					}
+				}
+				
+			}	
+		}
+		for(int i = 0; i < 15;i++){
+			for(int j = 0; j < 15;j++){
+				if(tabuleiro[i][j] == numPeca)
+				{
+					if( i > 0 && i < 14)
+					{
+						if(tabuleiro[i-1][j] <= -1)
+						{
+							tabuleiro[i-1][j] = tabuleiro[i-1][j] + (100+numPeca);
+						}
+						if(tabuleiro[i+1][j] <= -1)
+						{
+							tabuleiro[i+1][j] = tabuleiro[i+1][j] + (100+numPeca);
+						}
+					}
+					if(i == 0)
+					{
+						if(tabuleiro[i+1][j] <= -1)
+						{
+							tabuleiro[i+1][j] = tabuleiro[i+1][j] + (100+numPeca);
+						}
+					}
+					if(i==14)
+					{
+						if(tabuleiro[i-1][j] <= -1)
+						{
+							tabuleiro[i-1][j] = tabuleiro[i-1][j] + (100+numPeca);
+						}
+					}
+				}
+			}	
+		}
+	}
 	
 	public void addObserver(Observer o) {
 		lob.add(o);

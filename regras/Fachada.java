@@ -58,4 +58,19 @@ public class Fachada {
 	{
 		ctrl.setPadding(numTab, numPeca);
 	}
+	
+	public boolean verificaPeca(int posX , int posY, short numTab)
+	{
+		return ctrl.verificaPeca(posX, posY, numTab);
+	}
+	
+	public int removePeca(int posX , int posY, short numTab)
+	{
+		return ctrl.removePeca(posX, posY, numTab);
+	}
+	
+	public void removePadding(int posX , int posY, short numTab)
+	{
+		ctrl.removePadding(posX, posY, numTab);
+	}
 }
