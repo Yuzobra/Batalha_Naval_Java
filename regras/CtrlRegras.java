@@ -155,10 +155,10 @@ public class CtrlRegras implements Observable {
 			System.out.printf("configurando celula como atacada com valor: %d\n" ,tabuleiro[celY][celX]);
 			return 1;
 		}
-		else if(tabuleiro[celY][celX] == -1)
+		else if(tabuleiro[celY][celX] <= -1)
 		{
 			System.out.println("configurando celula como erro");
-			tabuleiro[celY][celX] = -3;
+			tabuleiro[celY][celX] = -500;
 			return -1;
 		}
 		

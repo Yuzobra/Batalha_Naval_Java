@@ -282,7 +282,16 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		}
 		else if(type == "remove")
 		{
-			container.add(vPecas1[(int)lob[1]]);
+			short numTab = (short)lob[2];
+			System.out.println(numTab);
+			if(numTab == 1)
+			{
+				container.add(vPecas1[(int)lob[1]]);
+			}
+			else 
+			{
+				container.add(vPecas2[(int)lob[1]]);				
+			}
 			repaint();
 		}
 	}
