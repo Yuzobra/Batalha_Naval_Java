@@ -3,6 +3,7 @@ package regras;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class CtrlRegras implements Observable {	
 	int tabuleiro1 [][];
 	int tabuleiro2 [][];
@@ -51,29 +52,6 @@ public class CtrlRegras implements Observable {
 		passarVez();
 	}	
 	
-	public int removePeca(int posX , int posY, short numTab) 
-	{
-		int [][] tabuleiro;
-		int numPeca = 0;
-		if(numTab == 1) {
-			tabuleiro = this.tabuleiro1;
-		}
-		else {
-			tabuleiro = this.tabuleiro2;
-		}
-		numPeca = tabuleiro[posY][posX];
-		
-		for(int i = 0; i < 15;i++){
-			for(int j = 0; j < 15;j++){
-				if(tabuleiro[i][j] == numPeca)
-				{
-					tabuleiro[i][j]= -1;
-				}
-			}
-		}
-		return numPeca;
-	}
-	
 	public int getVez() {
 		return vez;
 	}	
@@ -86,6 +64,7 @@ public class CtrlRegras implements Observable {
 			vez = 5;
 		}
 	}
+	
 	public void setJogadores(String jog1, String jog2) {
 		this.jog1 = jog1;
 		this.jog2 = jog2;
@@ -373,6 +352,33 @@ public class CtrlRegras implements Observable {
 				}
 			}	
 		}
+	}
+	
+	public int removePeca(int posX , int posY, short numTab) 
+	{
+		int [][] tabuleiro;
+		int numPeca = 0;
+		if(numTab == 1) {
+			tabuleiro = this.tabuleiro1;
+		}
+		else {
+			tabuleiro = this.tabuleiro2;
+		}
+		numPeca = tabuleiro[posY][posX];
+		
+		for(int i = 0; i < 15;i++){
+			for(int j = 0; j < 15;j++){
+				if(tabuleiro[i][j] == numPeca)
+				{
+					System.out.print("I: ");
+					System.out.print(i);
+					System.out.print(" J: ");
+					System.out.println(j);
+					tabuleiro[i][j]= -1;
+				}
+			}
+		}
+		return numPeca;
 	}
 	
 	public void removePadding(int posX , int posY, short numTab)

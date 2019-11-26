@@ -95,7 +95,15 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			if(!jog1Posicionado) {
 				// ADD TABULEIROS
 				BF1.setBounds(700,0, 700, 1000);
-				container.add(BF1,15);
+				if(BF1.getParent() != container) {
+					System.out.println("n eh");
+					container.add(BF1,15);					
+				}
+				else {
+					System.out.println("eh");
+					container.repaint();
+					BF1.repaint();
+				}
 			}
 			
 			else if (!jog2Posicionado) {
@@ -286,11 +294,11 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			System.out.println(numTab);
 			if(numTab == 1)
 			{
-				container.add(vPecas1[(int)lob[1]]);
+				container.add(vPecas1[(int)lob[1]], container.getComponentCount()-1);
 			}
 			else 
 			{
-				container.add(vPecas2[(int)lob[1]]);				
+				container.add(vPecas2[(int)lob[1]], container.getComponentCount()-1);				
 			}
 			repaint();
 		}
