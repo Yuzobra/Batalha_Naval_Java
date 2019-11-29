@@ -557,6 +557,10 @@ public class CtrlRegras implements Observable {
             }
         }
 	}
+
+	public void loadGame() {
+		
+	}
 	
 	public void removeObserver(Observer o) {
 		lob.remove(o);

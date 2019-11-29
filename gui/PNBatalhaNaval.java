@@ -15,6 +15,12 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	
 	
 	
+	JMenuBar mb= new JMenuBar();  
+    JMenu menu=new JMenu("Menu");  
+
+    JMenuItem i1=new JMenuItem("Load Game");  
+    JMenuItem i2=new JMenuItem("Save Game");  
+	
 	
 	Jogador j1;
 	Jogador j2;
@@ -29,6 +35,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
     JButton buttonInicio = new JButton("Start");
     JButton buttonInicioAtaque = new JButton("Start Attack");
     JButton saveButton = new JButton("Save Game");
+    JButton loadButton = new JButton("Load Game");
     JLabel attackLabel = new JLabel("AAAAAAAAAAAAAAAAAAAAAAAAA");
 
     Battlefield BF1;
@@ -68,6 +75,16 @@ public class PNBatalhaNaval extends JPanel implements Observer {
         buttonInicioAtaque.setBounds(600, 550, 100, 40);
         saveButton.addActionListener(new SaveButton());
         saveButton.setBounds(600, 600, 100, 40);
+        loadButton.addActionListener(new LoadButton());
+        loadButton.setBounds(670, 500, 100, 40);
+        		
+        		
+		menu.add(i1);
+	    
+	    menu.add(i2);
+	    mb.add(menu);  
+	    ((JFrame) SwingUtilities.getWindowAncestor(this)).setJMenuBar(mb);  
+        	    
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -83,16 +100,18 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 
 			nameTextField2.setBounds(715, 385, 100, 25); 
 	        nameTextField2.setFont(nameTextField.getFont().deriveFont(15f));
+
 	        
 	        add(nameTextField);
 	        add(nameTextField2);
 	        add(buttonInicio);
+	        add(loadButton);
 		}
 		else {
 			remove(buttonInicio);
 			remove(nameTextField);
 			remove(nameTextField2);
-			
+			remove(loadButton);
 			// ADD TABULEIROS
 			
 			if(!jog1Posicionado) {
@@ -165,8 +184,13 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	
 	class SaveButton implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("SALVANDO");
 			ctrl.saveGame(vez, numAcertos);
+		}
+	}
+	
+	class LoadButton implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			ctrl.loadGame();
 		}
 	}
 

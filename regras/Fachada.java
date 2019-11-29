@@ -77,4 +77,8 @@ public class Fachada {
 	public void saveGame(int vez, int numAcertos) {
 		ctrl.saveGame(vez, numAcertos);
 	}
+	
+	public void loadGame() {
+		ctrl.loadGame();
+	}
 }
