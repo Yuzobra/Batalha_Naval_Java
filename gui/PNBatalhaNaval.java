@@ -129,9 +129,15 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			else if (!jog2Posicionado) {
 				container.remove(BF1);
 				BF2.setBounds(700,0, 700, 1000);
-				setPecasJogador2();
-				container.add(BF2,15);
-				
+				System.out.println("vc ta certo");
+				//setPecasJogador2();
+				if(BF2.getParent() != container) {
+					container.add(BF2,15);					
+				}
+				else {
+					container.repaint();
+					BF2.repaint();
+				}
 			}
 			else if(jog2Posicionado == true && jog1Posicionado == true && vez == -1) {
 				BF1.setBounds(0,0, 700, 1000);
@@ -245,6 +251,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 					}	
 					if(container.getComponentCount() == 1) {
 						jog1Posicionado = true;
+						setPecasJogador2();
 						repaint();
 					}
 				
