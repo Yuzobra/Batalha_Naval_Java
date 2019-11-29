@@ -2,7 +2,9 @@ package regras;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class CtrlRegras implements Observable {	
 	int tabuleiro1 [][];
@@ -26,7 +28,6 @@ public class CtrlRegras implements Observable {
 		this.jog2 = "";
 	}
 
-
 	public int[][] getMatriz(short numTab) {
 		if(numTab == 1)
 			return tabuleiro1;
@@ -48,22 +49,7 @@ public class CtrlRegras implements Observable {
 				return;
 			}	
 		}
-		
-		passarVez();
-	}	
-	
-	public int getVez() {
-		return vez;
-	}	
-
-	public void passarVez() {
-		if(vez == 5) {
-			vez = -1;
-		}
-		else {
-			vez = 5;
-		}
-	}
+	}		
 	
 	public void setJogadores(String jog1, String jog2) {
 		this.jog1 = jog1;
@@ -152,7 +138,6 @@ public class CtrlRegras implements Observable {
 		return 0;
 	}
 
-	
 	public boolean checaPecaAfundada(int numTab, int posX , int posY)
 	{
 		System.out.println("checando afundada ");
@@ -516,7 +501,63 @@ public class CtrlRegras implements Observable {
 		lob.add(o);
 	}
 
-
+	public void saveGame(int Vez, int numAcertos) {
+		String data = "";
+		File saveFile;
+		FileWriter fr = null;
+		int i, j;
+		try {
+			saveFile = new File("saveFile.txt");
+            fr = new FileWriter(saveFile);
+            
+            
+            for(i = 0; i < 15; i++) /* Salvar tabuleiro do jogador 1 */ {
+            	for(j = 0; j < 15; j++) {
+            		data = data + Integer.toString(tabuleiro1[j][i]);
+            		if(i == 14 && j == 14) {
+            			data = data + "\n";
+            		}
+            		else {
+            			data = data + ",";
+            		}
+            	}
+            }
+            for(i = 0; i < 15; i++) {
+            	for(j = 0; j < 15; j++) /* Salvar tabuleiro do jogador 1 */ {
+            		data = data + Integer.toString(tabuleiro2[j][i]);
+            		if(i == 14 && j == 14) {
+            			data = data + "\n";
+            		}
+            		else {
+            			data = data + ",";
+            		}
+            	}
+            }
+            
+            // Salvar de qual jogador é a vez
+            data = data + Integer.toString(Vez) + "\n";
+            
+            // Salvar numero de tiros já feitos
+            data = data + Integer.toString(numAcertos);
+            		
+            // Salvar nome dos jogadores
+            data = data + jog1 + "\n";
+            data = data + jog2;
+            
+            
+            fr.write(data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally{
+            //close resources
+            try {
+                fr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+	}
+	
 	public void removeObserver(Observer o) {
 		lob.remove(o);
 	}
