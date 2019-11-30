@@ -1,8 +1,11 @@
 package gui;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import java.awt.*;
 import java.awt.geom.*;
+import java.io.File;
 import java.awt.event.*;
 import regras.*;
  
@@ -13,6 +16,9 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	Celula tab1[][]=new Celula[15][15];
 	Celula tab2[][]=new Celula[15][15];
 	
+	JFileChooser fileChooser = new JFileChooser();
+	FileNameExtensionFilter filter = new FileNameExtensionFilter(
+	        "Game load file", "txt");
 	
 	
 	JMenuBar mb= new JMenuBar();  
@@ -22,8 +28,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
     JMenuItem i2=new JMenuItem("Save Game");  
 	
 	
-	Jogador j1;
-	Jogador j2;
+
 	//Jogador jogadores [] ;
 	Line2D.Double ln1[]=new Line2D.Double[32];
 	Line2D.Double ln2[]=new Line2D.Double[32];
@@ -58,9 +63,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		BF1.addObserver(this);
 		BF2.addObserver(this);
 		
-		j1 = Jogador.criaJogador("stub", 1);
-		j2 = Jogador.criaJogador("stub", 2);
-		//jogadores = new Jogador [] {j1,j2};
+
 		container = new JPanel(new GridLayout(2,1));
 		container.setSize(1400, 700);
 		container.setLayout(null);
@@ -78,12 +81,13 @@ public class PNBatalhaNaval extends JPanel implements Observer {
         loadButton.addActionListener(new LoadButton());
         loadButton.setBounds(670, 500, 100, 40);
         		
-        		
+		fileChooser.setFileFilter(filter);
+        
 		menu.add(i1);
 	    
 	    menu.add(i2);
 	    mb.add(menu);  
-	    ((JFrame) SwingUtilities.getWindowAncestor(this)).setJMenuBar(mb);  
+//	    ((JFrame) SwingUtilities.getWindowAncestor(this)).setJMenuBar(mb);  
         	    
 	}
 	
@@ -91,7 +95,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		super.paintComponent(g);
 		Graphics2D g2d=(Graphics2D) g;
 		
-		if(j1.getMyName() == "stub" || j2.getMyName() == "stub") {
+		if(ctrl.getJogador(1).getMyName() == "stub" || ctrl.getJogador(2).getMyName() == "stub") {
 			
 			g2d.drawString("Jogador 1:", 650, 350);
 			g2d.drawString("Jogador 2:", 650, 400);
@@ -162,14 +166,11 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		}		
 	}
 	
-	
-	
-	
 	class IntroButton implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 	       ctrl.setJogadores(nameTextField.getText(), nameTextField2.getText());
-	       BF1.setJogador(j1);
-	       BF2.setJogador(j2);
+	       BF1.setJogador(ctrl.getJogador(1));
+	       BF2.setJogador(ctrl.getJogador(2));
 	    }
 	}
 
@@ -179,10 +180,10 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			if(attackEnded == true) {
 				attackEnded = false;
 				if(vez == 1) {		
-					setAttack(j2);
+					setAttack(ctrl.getJogador(2));
 				}
 				else {
-					setAttack(j1);
+					setAttack(ctrl.getJogador(1));
 				}
 			}
 	    }
@@ -196,11 +197,30 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	
 	class LoadButton implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			ctrl.loadGame();
+			int returnVal = fileChooser.showOpenDialog(getParent());
+		    if(returnVal == JFileChooser.APPROVE_OPTION) {
+		       System.out.println("You chose to open this file: " + fileChooser.getSelectedFile().getName());
+		       File loadGameFile = fileChooser.getSelectedFile();
+		       ctrl.loadGame(loadGameFile);
+		       jog1Posicionado = true;
+		       jog2Posicionado = true;
+		       BF1.setBounds(0,0, 700, 1000);
+		       BF2.setBounds(700,0, 700, 1000);
+		       BF1.setAttackMode();
+		       BF2.setAttackMode();
+		       container.add(BF1,0);
+		       container.add(BF2,1);
+		       buttonInicioAtaque.setBounds(600, 550, 100, 40);
+		       add(buttonInicioAtaque);
+		       add(saveButton);
+		       vez = ctrl.getVez();
+		       BF1.setJogador(ctrl.getJogador(1));
+		       BF2.setJogador(ctrl.getJogador(2));
+		       repaint();
+		    }
 		}
 	}
 
-	
 	private void setAttack(Jogador jogador)
 	{
 		if(jogador.getVez() == 1)
@@ -235,8 +255,8 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		if(type.compareTo("regras") == 0) 
 		{
 			String [] jogadores = (String [])lob[4];	
-			j1.setMyName(jogadores[0]);
-			j2.setMyName(jogadores[1]);
+			ctrl.getJogador(1).setMyName(jogadores[0]);
+			ctrl.getJogador(2).setMyName(jogadores[1]);
 			repaint();
 		}
 		else if(type.compareTo("movement-released") == 0)
@@ -326,8 +346,8 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	
 	private void setPecas() {
 		
-		vPecas1 = j1.getMyPieces();
-		vPecas2 = j2.getMyPieces();
+		vPecas1 = ctrl.getJogador(1).getMyPieces();
+		vPecas2 = ctrl.getJogador(2).getMyPieces();
 		
 		for(int i =0 ; i< 15 ; i++)
 		{
@@ -432,8 +452,8 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	
 	private void setPecasJogador2() {
 		
-		vPecas1 = j1.getMyPieces();
-		vPecas2 = j2.getMyPieces();
+		vPecas1 = ctrl.getJogador(1).getMyPieces();
+		vPecas2 = ctrl.getJogador(2).getMyPieces();
 		
 		for(int i =0 ; i< 15 ; i++)
 		{

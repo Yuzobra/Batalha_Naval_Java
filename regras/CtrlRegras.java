@@ -2,18 +2,28 @@ package regras;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
+import gui.Jogador;
+
+import java.io.Closeable;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
 
 public class CtrlRegras implements Observable {	
 	int tabuleiro1 [][];
 	int tabuleiro2 [][];
 	String jog1;
 	String jog2;
+	
+	Jogador j1;
+	Jogador j2;
+	
 	int vez=5;
 	List<Observer> lob=new ArrayList<Observer>();
-
 	public CtrlRegras() {
 		this.tabuleiro1 = new int[15][15];
 		this.tabuleiro2 = new int[15][15];
@@ -26,6 +36,10 @@ public class CtrlRegras implements Observable {
 		}
 		this.jog1 = "";
 		this.jog2 = "";
+		
+		j1 = Jogador.criaJogador("stub", 1);
+		j2 = Jogador.criaJogador("stub", 2);
+
 	}
 
 	public int[][] getMatriz(short numTab) {
@@ -523,7 +537,7 @@ public class CtrlRegras implements Observable {
             	}
             }
             for(i = 0; i < 15; i++) {
-            	for(j = 0; j < 15; j++) /* Salvar tabuleiro do jogador 1 */ {
+            	for(j = 0; j < 15; j++) /* Salvar tabuleiro do jogador 2 */ {
             		data = data + Integer.toString(tabuleiro2[j][i]);
             		if(i == 14 && j == 14) {
             			data = data + "\n";
@@ -535,14 +549,19 @@ public class CtrlRegras implements Observable {
             }
             
             // Salvar de qual jogador é a vez
-            data = data + Integer.toString(Vez) + "\n";
+            if(vez == 1) {
+            	data = data + Integer.toString(2) + "\n";
+            }
+            else {            	
+            	data = data + Integer.toString(1) + "\n";
+            }
             
             // Salvar numero de tiros já feitos
-            data = data + Integer.toString(numAcertos);
+            data = data + Integer.toString(numAcertos) + "\n";
             		
             // Salvar nome dos jogadores
-            data = data + jog1 + "\n";
-            data = data + jog2;
+            data = data + j1.getMyName() + "\n";
+            data = data + j2.getMyName();
             
             
             fr.write(data);
@@ -558,15 +577,83 @@ public class CtrlRegras implements Observable {
         }
 	}
 
-	public void loadGame() {
+	public void loadGame(File loadGameFile) {
+		Scanner s;
+		String line;
+		int i = 0;
+		try {
+			s = new Scanner(loadGameFile);
+			while(s.hasNextLine()) {
+				line = s.nextLine();
+				
+				if(i == 0) /* Preencher tabuleiro do jogador 1 */ {
+					fillBoard((short)1, line);
+				}
+				else if(i == 1) /* Preencher tabuleiro do jogador 2 */ {
+					fillBoard((short)2, line);	
+				}
+				else if(i == 2) /* Preencher de quem é a vez */ {
+					vez = Integer.parseInt(line);
+				}
+				
+				else if(i == 3) /* Preencher quantos tiros foram feitos TODO */ {
+					
+				}
+				
+				else if(i == 4) /* Preencher nome do jogador 1 */ {
+					j1.setMyName(line);
+				}
+				
+				else if(i == 5) /* Preencher nome do jogador 2  */ {
+					j2.setMyName(line);
+				}
+				
+				i++;
+			}
+			
+			System.out.println(vez);
+			System.out.println(j1.getMyName());
+			System.out.println(j2.getMyName());
+			s.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return;
+		}
 		
+	}
+	
+	private void fillBoard(short numTab, String line) {
+		int i, j, k=0;
+		
+		String[] values = line.split(",", -1);
+		
+		for(i = 0; i < 15; i++) {
+			for(j = 0; j < 15; j++) {
+				if(numTab == 1) {
+					tabuleiro1[j][i] = Integer.parseInt(values[k++]);
+				}
+				else {
+					tabuleiro2[j][i] = Integer.parseInt(values[k++]);	
+				}
+			}
+		}
+
+	}
+	
+	
+	public Jogador getJogador(int numJog) {
+		if(numJog == 1) {
+			return j1;
+		}
+		else {
+			return j2;
+		}
 	}
 	
 	public void removeObserver(Observer o) {
 		lob.remove(o);
 	}
 
-	@Override
 	public Object get() {
 		Object data[] = new Object[5];
 		String jogs[] = new String[2];

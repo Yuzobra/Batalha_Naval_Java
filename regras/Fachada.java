@@ -1,5 +1,9 @@
 package regras;
 
+import java.io.File;
+
+import gui.Jogador;
+
 public class Fachada {
 	CtrlRegras ctrl;
 	static Fachada f=null;
@@ -78,7 +82,11 @@ public class Fachada {
 		ctrl.saveGame(vez, numAcertos);
 	}
 	
-	public void loadGame() {
-		ctrl.loadGame();
+	public void loadGame(File file) {
+		ctrl.loadGame(file);
+	}
+	
+	public Jogador getJogador(int numJog) {
+		return ctrl.getJogador(numJog);
 	}
 }
