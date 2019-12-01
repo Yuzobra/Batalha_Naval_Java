@@ -378,7 +378,7 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 				data[1] = ataques;
 				data[2] = numTab;
 				data[3] = "peca";
-				
+				data[4] = ctrl.getUltimaPeca();
 				for(Observer o:lob)
 					o.notify(this);
 			}
@@ -388,7 +388,6 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 				data[1] = ataques;
 				data[2] = numTab;
 				data[3] = "agua";
-				
 				for(Observer o:lob)
 					o.notify(this);
 			}

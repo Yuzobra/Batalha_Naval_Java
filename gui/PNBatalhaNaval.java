@@ -23,6 +23,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	FileNameExtensionFilter filter = new FileNameExtensionFilter(
 	        "Game load file", "txt");
 	
+	JLabel status = new JLabel("AKiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
 	
 	JMenuBar menuBar= new JMenuBar();  
     JMenu menuB =new JMenu("Menu");  
@@ -79,7 +80,8 @@ public class PNBatalhaNaval extends JPanel implements Observer {
         buttonInicio.setBounds(670, 450, 100, 40);
         buttonInicioAtaque.addActionListener(new AtaqueButton());
         buttonInicioAtaque.setBounds(575, 620, 150, 40);
-        		
+        status.setBounds(900, 650  , 150, 40);
+        
 		fileChooser.setFileFilter(filter);
         
 		menuBar.setBounds(0,0 , 1400, 20);
@@ -95,7 +97,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		super.paintComponent(g);
 		Graphics2D g2d=(Graphics2D) g;
 		add(menuBar);
-		
+		add(status);
 		if((ctrl.getJogador(1).getMyName() == "stub" || ctrl.getJogador(2).getMyName() == "stub") && reinicio == false )// && //reinicio == false)
 		{
 			System.out.println("inicio");
