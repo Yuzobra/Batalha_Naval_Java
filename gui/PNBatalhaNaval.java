@@ -90,7 +90,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		i1.addActionListener(new LoadButton());
 		menuB.add(i1);
 	    i2.addActionListener(new SaveButton());
-	    menuBar.add(menuB);  
+	    menuBar.add(menuB);
 	    //((JFrame) SwingUtilities.getWindowAncestor(this)).setJMenuBar(menuBar);  
 	    add(menuBar, 0);
 	}
@@ -320,6 +320,10 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				numAcertos = (int)lob[1];
 			}
 			
+			if(gameLoaded == true && tipoAcerto != "erro") {
+				numAcertos++;
+			}
+			
 			if(numAcertos == 3) {
 				gameLoaded = false;
 				numAcertos = 0;
@@ -383,16 +387,14 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 //				attackLabel.setText("Essa casa ja foi atingida!");
 //				attackLabel = "Essa casa ja foi atingida!";
 			}
+
 			
-			if(gameLoaded == true && tipoAcerto != "erro") {
-				numAcertos++;
-			}
 		}
 		
 		
 		else if(type == "setNumAttacks") {
 			gameLoaded = true;
-			numAcertos = (int)lob[1]+1;
+			numAcertos = (int)lob[1];
 		}
 		
 		
