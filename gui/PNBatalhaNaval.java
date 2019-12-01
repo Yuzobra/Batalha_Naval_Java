@@ -327,7 +327,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 //				attackLabel = "Essa casa ja foi atingida!";
 			}
 			
-			if(gameLoaded == true) {
+			if(gameLoaded == true && tipoAcerto != "erro") {
 				numAcertos++;
 			}
 		}

@@ -331,6 +331,7 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 			
 			System.out.printf("estado do ataque: %d\n", estado);
 			
+			
 			if(estado == 0) // Nao atingiu pe�a
 			{
 				 	 
