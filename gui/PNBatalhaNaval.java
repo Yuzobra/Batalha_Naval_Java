@@ -44,8 +44,6 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	JTextField nameTextField2 = new JTextField(20);
     JButton buttonInicio = new JButton("Start");
     JButton buttonInicioAtaque = new JButton("Start Attack");
-    JButton saveButton = new JButton("Save Game");
-    JButton loadButton = new JButton("Load Game");
     JLabel attackLabel = new JLabel("AAAAAAAAAAAAAAAAAAAAAAAAA");
 
     Battlefield BF1;
@@ -72,7 +70,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		container = new JPanel(new GridLayout(2,1));
 		container.setSize(1400, 600);
 		container.setLayout(null);
-		container.setLocation(0, 0);
+		container.setLocation(0, 20);
 
 		this.setPecas();
 		
@@ -80,11 +78,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		buttonInicio.addActionListener(new IntroButton());
         buttonInicio.setBounds(670, 450, 100, 40);
         buttonInicioAtaque.addActionListener(new AtaqueButton());
-        buttonInicioAtaque.setBounds(575, 600, 150, 40);
-        saveButton.addActionListener(new SaveButton());
-        saveButton.setBounds(575, 650, 150, 40);
-        loadButton.addActionListener(new LoadButton());
-        loadButton.setBounds(670, 500, 100, 40);
+        buttonInicioAtaque.setBounds(575, 620, 150, 40);
         		
 		fileChooser.setFileFilter(filter);
         
@@ -92,10 +86,9 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		i1.addActionListener(new LoadButton());
 		menuB.add(i1);
 	    i2.addActionListener(new SaveButton());
-	    menuB.add(i2);
 	    menuBar.add(menuB);  
 	    //((JFrame) SwingUtilities.getWindowAncestor(this)).setJMenuBar(menuBar);  
-        	    
+	    add(menuBar, 0);
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -114,10 +107,9 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	        nameTextField2.setFont(nameTextField.getFont().deriveFont(15f));
 
 	        
-	        add(nameTextField);
-	        add(nameTextField2);
-	        add(buttonInicio);
-	        add(loadButton);
+	        add(nameTextField,1);
+	        add(nameTextField2,1);
+	        add(buttonInicio,1);
 		}
 		else {
 			if( reinicio == false )
@@ -142,7 +134,6 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			
 			if(!jog1Posicionado) {
 				// ADD TABULEIROS
-				loadButton.setLocation(600, 600);
 				BF1.setBounds(700,0, 700, 1000);
 				if(BF1.getParent() != container) {
 					container.add(BF1,15);					
@@ -167,25 +158,27 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				}
 			}
 			else if(jog2Posicionado == true && jog1Posicionado == true && vez == -1) {
-				remove(loadButton);
 				BF1.setBounds(0,0, 700, 1000);
 				container.remove(BF2);
 				BF1.setAttackMode();
 				BF2.setAttackMode();
 				container.add(BF1,0);
 				container.add(BF2,1);
-				buttonInicioAtaque.setBounds(575, 600, 150, 40);
+				buttonInicioAtaque.setBounds(575, 620, 150, 40);
 	
-				add(buttonInicioAtaque);	
-		        add(saveButton);
-
+				add(buttonInicioAtaque,1);	
+		        
+		        menuB.remove(i1);
+		        menuB.add(i2);
+		        
+		        
 				attackLabel.setBounds(450, 600, 300,50);
 		        container.add(attackLabel,2);
 		        
 			}
 			
 			
-		    add(container);
+		    add(container,1);
 		}		
 	}
 	
@@ -227,7 +220,6 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			int returnVal = fileChooser.showOpenDialog(getParent());
 		    if(returnVal == JFileChooser.APPROVE_OPTION) {
 		       System.out.println("You chose to open this file: " + fileChooser.getSelectedFile().getName());
-		       remove(loadButton);
 		       File loadGameFile = fileChooser.getSelectedFile();
 		       ctrl.loadGame(loadGameFile);
 		       jog1Posicionado = true;
@@ -238,9 +230,11 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		       BF2.setAttackMode();
 		       container.add(BF1,0);
 		       container.add(BF2,1);
-		       buttonInicioAtaque.setBounds(575, 600, 150, 40);
-		       add(buttonInicioAtaque);
-		       add(saveButton);
+		       buttonInicioAtaque.setBounds(575, 650, 150, 40);
+		       add(buttonInicioAtaque,2);
+		       menuB.remove(i1);
+		       menuB.add(i2);
+		        
 		       vez = ctrl.getVez();
 		       BF1.setJogador(ctrl.getJogador(1));
 		       BF2.setJogador(ctrl.getJogador(2));
@@ -330,7 +324,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				BF1.isUnderAttack = false;
 				BF2.isUnderAttack = false;
 				attackEnded = true;
-				add(buttonInicioAtaque);
+				add(buttonInicioAtaque,1);
 				repaint();
 			}
 			
@@ -351,7 +345,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 //				attackLabel = "Essa casa ja foi atingida!";
 			}
 			
-			if(gameLoaded == true) {
+			if(gameLoaded == true && tipoAcerto != "erro") {
 				numAcertos++;
 			}
 		}
@@ -377,10 +371,10 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			}
 			repaint();
 		}
-		else if(type == "recomeça")
+		else if(type == "recomeï¿½a")
 		{
 			
-			System.out.println("recomeçando");
+			System.out.println("recomeï¿½ando");
 			this.reinicio = true;
 			this.ctrl.reset();
 			this.ctrl.setJogadores(j1.getMyName(), j2.getMyName());
