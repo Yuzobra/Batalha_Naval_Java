@@ -382,6 +382,11 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 					if(reposta == JOptionPane.YES_OPTION)
 					{
 						// TO-DO
+						data[0] = "recomeça";
+					
+						
+						for(Observer o:lob)
+							o.notify(this);
 					}
 					else
 					{

@@ -28,7 +28,8 @@ public class PNBatalhaNaval extends JPanel implements Observer {
     JMenuItem i1=new JMenuItem("Load Game");  
     JMenuItem i2=new JMenuItem("Save Game");  
 	
-	
+	Jogador j1 = Jogador.criaJogador("stub", 1); 
+	Jogador j2 = Jogador.criaJogador("stub", 2); 
 
 	//Jogador jogadores [] ;
 	Line2D.Double ln1[]=new Line2D.Double[32];
@@ -48,7 +49,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
     Battlefield BF2;
     JPanel container;
     
-    
+    boolean reinicio = false;
     
     Peca vPecas1[];
     Peca vPecas2[];
@@ -98,7 +99,8 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		super.paintComponent(g);
 		Graphics2D g2d=(Graphics2D) g;
 		add(menuBar);
-		if(ctrl.getJogador(1).getMyName() == "stub" || ctrl.getJogador(2).getMyName() == "stub") {
+		if(j1.getMyName() == "stub" || j2.getMyName() == "stub" && !reinicio)
+		{
 			
 			g2d.drawString("Jogador 1:", 650, 350);
 			g2d.drawString("Jogador 2:", 650, 400);
@@ -172,6 +174,8 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	class IntroButton implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 	       ctrl.setJogadores(nameTextField.getText(), nameTextField2.getText());
+	       j1.setMyName(nameTextField.getText());
+	       j2.setMyName(nameTextField2.getText());
 	       BF1.setJogador(ctrl.getJogador(1));
 	       BF2.setJogador(ctrl.getJogador(2));
 	    }
@@ -346,6 +350,77 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				container.add(vPecas2[(int)lob[1]], container.getComponentCount()-1);				
 			}
 			repaint();
+		}
+		else if(type == "recomeça")
+		{
+			System.out.println("recomeçando");
+			this.reinicio = true;
+			this.xIni=40.0;
+			this.yIni=40.0;
+			this.xIni2=800.0;
+			this.larg=30.0;
+			this.alt=30.0;
+			this.espLinha=5.0;
+			numAcertos = 0;
+			this.tab1 =new Celula[15][15];
+			this.tab2 =new Celula[15][15];
+			
+			//this.fileChooser = new JFileChooser();
+		//	this.filter = new FileNameExtensionFilter(
+			//        "Game load file", "txt");
+			
+			
+			//this.menuBar= new JMenuBar();  
+		   // this.menuB =new JMenu("Menu");  
+		    
+		    
+		   // this.i1=new JMenuItem("Load Game");  
+		    //this.i2=new JMenuItem("Save Game");  
+			
+			
+
+			//Jogador jogadores [] ;
+	//		this.ln1 = new Line2D.Double[32];
+	//		this.ln2 = new Line2D.Double[32];
+		
+			this.vez = -1;
+			
+			//this.nameTextField = new JTextField(20);
+			//this.nameTextField2 = new JTextField(20);
+		  //  this.buttonInicio = new JButton("Start");
+		   // this.buttonInicioAtaque = new JButton("Start Attack");
+		  //  this.saveButton = new JButton("Save Game");
+		  //  this.loadButton = new JButton("Load Game");
+		 //   this.attackLabel = new JLabel("AAAAAAAAAAAAAAAAAAAAAAAAA");
+		    
+		    
+		    this.jog1Posicionado = false;
+		    this.jog2Posicionado = false;
+		    this.attackEnded = true;
+		    
+		 
+			
+			BF1 = new Battlefield(xIni, yIni, (short)1, Fachada.getFachada());
+			BF2 = new Battlefield(xIni, yIni, (short)2, Fachada.getFachada());
+			BF1.addObserver(this);
+			BF2.addObserver(this);
+			
+
+			container = new JPanel(new GridLayout(2,1));
+			container.setSize(1400, 600);
+			container.setLayout(null);
+			container.setLocation(0, 0);
+
+			this.setPecas();
+			
+			repaint();
+			
+	      // this.ctrl. 		
+	        
+	
+		
+
+		    
 		}
 	}
 	
