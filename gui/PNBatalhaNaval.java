@@ -95,6 +95,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		super.paintComponent(g);
 		Graphics2D g2d=(Graphics2D) g;
 		add(menuBar);
+		
 		if((ctrl.getJogador(1).getMyName() == "stub" || ctrl.getJogador(2).getMyName() == "stub") && reinicio == false )// && //reinicio == false)
 		{
 			System.out.println("inicio");
@@ -120,7 +121,6 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			}
 			else
 			{
-				System.out.println("faz sentido ");
 				remove(BF1);
 				remove(BF2);
 				BF1.repaint();
@@ -147,7 +147,6 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			else if (!jog2Posicionado) {
 				container.remove(BF1);
 				BF2.setBounds(700,0, 700, 1000);
-				System.out.println("vc ta certo");
 				//setPecasJogador2();
 				if(BF2.getParent() != container) {
 					container.add(BF2,15);					
@@ -176,7 +175,6 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		        container.add(attackLabel,2);
 		        
 			}
-			
 			
 		    add(container,1);
 		}		
@@ -264,7 +262,6 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			BF2.isUnderAttack = false;
 			BF2.repaint();
 		}
-		//repaint();
 	}
 	
 	public void notify(Observable o) {
@@ -404,21 +401,18 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			BF1.setJogador(this.ctrl.getJogador(1));
 			BF2.setJogador(this.ctrl.getJogador(2));
 
+			remove(container);
 			container = new JPanel(new GridLayout(2,1));
 			container.setSize(1400, 600);
 			container.setLayout(null);
 			container.setLocation(0, 20);
 			remove(buttonInicioAtaque);
+			
 			this.setPecas();
 						
-			repaint();
+			reinicio = false;
 			
-	        	
-	        
-	
-		
-
-		    
+			repaint();   
 		}
 	}
 	
