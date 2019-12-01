@@ -111,6 +111,7 @@ public class CtrlRegras implements Observable {
 		else {
 			tabuleiro = this.tabuleiro2;
 		}
+		
 		if(tabuleiro[posY][posX] >= 0) {
 			return true;
 		}

@@ -469,14 +469,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		
 		vPecas1 = ctrl.getJogador(1).getMyPieces();
 		vPecas2 = ctrl.getJogador(2).getMyPieces();
-		
-		for(int i =0 ; i< 15 ; i++)
-		{
-			vPecas1[i].addObserver(this);
-			vPecas2[i].addObserver(this);
-		}
-		
-	    
+			    
 		vPecas1[0].setBounds(50,100, 100,70);
 		vPecas1[1].setBounds(185,100, 100,70);
 		vPecas1[2].setBounds(320,100, 100,70);
