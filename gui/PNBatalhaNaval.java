@@ -126,6 +126,17 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				remove(nameTextField);
 				remove(nameTextField2);
 			}
+			else
+			{
+				remove(BF1);
+				remove(BF2);
+				BF1.repaint();
+				BF2.repaint();
+				container.remove(BF1);
+				container.remove(BF2);
+				container.repaint();
+				
+			}
 			// ADD TABULEIROS
 			
 			if(!jog1Posicionado) {
@@ -370,6 +381,8 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			
 			System.out.println("recomeçando");
 			this.reinicio = true;
+			this.ctrl.reset();
+			
 			this.xIni=40.0;
 			this.yIni=40.0;
 			this.xIni2=800.0;
@@ -419,7 +432,8 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			BF2 = new Battlefield(xIni, yIni, (short)2, Fachada.getFachada());
 			BF1.addObserver(this);
 			BF2.addObserver(this);
-			
+			BF1.setJogador(j1);
+			BF2.setJogador(j2);
 
 			container = new JPanel(new GridLayout(2,1));
 			container.setSize(1400, 600);
@@ -428,7 +442,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 
 			this.setPecas();
 			
-			//this.ctrl.reset();
+			this.ctrl.reset();
 			
 			repaint();
 			

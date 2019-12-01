@@ -428,4 +428,17 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 		// TODO Auto-generated method stub
 		return data;
 	}
+	
+	public void reset()
+	{
+		tab = new Celula[15][15];
+		this.AttackMode = false;
+		this.isHidden = false;
+		this.isUnderAttack = false;
+		this.ataques = 0;
+		this.pressedX=0 ; this.pressedY=0;
+		
+		this.data= new Object[5]; 
+		ctrl.reset();
+	}
 }
