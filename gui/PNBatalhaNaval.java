@@ -3,6 +3,8 @@ package gui;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import gui.Peca.Type;
+
 import java.awt.*;
 import java.awt.geom.*;
 import java.io.File;
@@ -23,7 +25,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	FileNameExtensionFilter filter = new FileNameExtensionFilter(
 	        "Game load file", "txt");
 	
-	JLabel status = new JLabel("AKiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+	JLabel status = new JLabel("Attack Status");
 	
 	JMenuBar menuBar= new JMenuBar();  
     JMenu menuB =new JMenu("Menu");  
@@ -80,8 +82,8 @@ public class PNBatalhaNaval extends JPanel implements Observer {
         buttonInicio.setBounds(670, 450, 100, 40);
         buttonInicioAtaque.addActionListener(new AtaqueButton());
         buttonInicioAtaque.setBounds(575, 620, 150, 40);
-        status.setBounds(900, 650  , 150, 40);
-        
+        status.setBounds(900, 650  , 450, 40);
+        status.setForeground(Color.MAGENTA);
 		fileChooser.setFileFilter(filter);
         
 		menuBar.setBounds(0,0 , 1400, 20);
@@ -97,7 +99,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		super.paintComponent(g);
 		Graphics2D g2d=(Graphics2D) g;
 		add(menuBar);
-		add(status);
+		
 		if((ctrl.getJogador(1).getMyName() == "stub" || ctrl.getJogador(2).getMyName() == "stub") && reinicio == false )// && //reinicio == false)
 		{
 			System.out.println("inicio");
@@ -198,6 +200,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		public void actionPerformed(ActionEvent e) {
 //			System.out.println("removendo");
 			remove(buttonInicioAtaque);
+			remove(status);
 			repaint();
 			if(attackEnded == true) {
 				attackEnded = false;
@@ -312,7 +315,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		}
 		else if(type.compareTo("attack-executed") == 0) {
 			String tipoAcerto = (String)lob[3];
-			
+			add(status);
 			if(gameLoaded != true) {
 				numAcertos = (int)lob[1];
 			}
@@ -331,17 +334,52 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			
 			// #TODO CONSERTAR ESSES SETTEXT QUE N FUNCIONAM
 			if( tipoAcerto.compareTo("agua") == 0) {
-				
+				status.setText(" Você acertou a agua");
 //				attackLabel.setText("ï¿½gua atingida!");
 //				attackLabel = "ï¿½gua atingida!";
 			}
 			
 			else if( tipoAcerto.compareTo("peca") == 0) {
-//				attackLabel.setText("Peï¿½a atingida!");
-//				attackLabel = "Peï¿½a atingida!";
+				int id = (int)lob[4];
+				String tipoPeca = "";
+				if(id <5)
+				{
+					//System.out.println("hidro");
+					tipoPeca = "HidroPlano";
+				}
+				else if (id >= 5 && id < 9)
+				{
+					//System.out.println("sub");
+					tipoPeca= "Submarino";
+				}
+				else if(id >= 9 && id < 12)
+				{
+					//System.out.println("destroyer");
+					tipoPeca = "Destroyer";
+				}
+				else if(id >=12 && id < 14)
+				{
+					//System.out.println("crusador");
+					tipoPeca = "Crusador";
+				}
+				else if(id == 14)
+				{
+					//System.out.println("couraçado");
+					tipoPeca = "Couraçado";
+				}
+				if(ctrl.checaPecaAfundada((short)lob[2], id))
+				{
+					
+					status.setText("Você afundou um " + tipoPeca);
+				}
+				else
+				{
+					status.setText("Você atingiu um " + tipoPeca);
+				}
 			}
 			
 			else if( tipoAcerto.compareTo("erro") == 0) {
+				status.setText("Esta casa ja foi atingida");
 //				attackLabel.setText("Essa casa ja foi atingida!");
 //				attackLabel = "Essa casa ja foi atingida!";
 			}
@@ -376,6 +414,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		{
 			
 			System.out.println("recomecando");
+			remove(status);
 			this.reinicio = true;
 			this.ctrl.reset();
 			

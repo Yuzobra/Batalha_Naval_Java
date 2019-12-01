@@ -100,4 +100,8 @@ public class Fachada {
 		return ctrl.getUltimaPeca();
 	}
 	
+	public boolean checaPecaAfundada(int numTab, int numPeca)
+	{
+		return ctrl.checaPecaAfundada(numTab, numPeca);
+	}
 }

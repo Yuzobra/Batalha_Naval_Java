@@ -174,7 +174,6 @@ public class CtrlRegras implements Observable {
 
 	public boolean checaPecaAfundada(int numTab, int posX , int posY)
 	{
-		System.out.println("checando afundada ");
 		int [][] tabuleiro;	
 		
 
@@ -210,6 +209,39 @@ public class CtrlRegras implements Observable {
 			}
 		}
 		System.out.printf("afundou");
+		return true;
+	}
+	
+	public boolean checaPecaAfundada(int numTab, int numPeca)
+	{
+		int [][] tabuleiro;	
+		
+		if(numTab == 1) {
+			tabuleiro = this.tabuleiro1;
+		}
+		else {
+			tabuleiro = this.tabuleiro2;
+		}
+
+		System.out.printf("conferindo peça : %d", numPeca );
+		for(int i = 0; i < 15;i++){
+			for(int j = 0; j < 15;j++){
+				if(tabuleiro[i][j] == numPeca)
+				{
+					return false; 					
+				}				
+			}
+		}
+		
+		for(int i = 0; i < 15;i++){
+			for(int j = 0; j < 15;j++){
+				if(tabuleiro[i][j] == numPeca + 100)
+				{
+					tabuleiro[i][j] = 200;					
+				}				
+			}
+		}
+		//System.out.printf("afundou");
 		return true;
 	}
 	
