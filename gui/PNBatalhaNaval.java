@@ -121,11 +121,12 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			remove(buttonInicio);
 			remove(nameTextField);
 			remove(nameTextField2);
-			remove(loadButton);
+
 			// ADD TABULEIROS
 			
 			if(!jog1Posicionado) {
 				// ADD TABULEIROS
+				loadButton.setLocation(600, 600);
 				BF1.setBounds(700,0, 700, 1000);
 				if(BF1.getParent() != container) {
 					container.add(BF1,15);					
@@ -150,6 +151,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				}
 			}
 			else if(jog2Posicionado == true && jog1Posicionado == true && vez == -1) {
+				remove(loadButton);
 				BF1.setBounds(0,0, 700, 1000);
 				container.remove(BF2);
 				BF1.setAttackMode();
@@ -157,9 +159,8 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				container.add(BF1,0);
 				container.add(BF2,1);
 				buttonInicioAtaque.setBounds(575, 600, 150, 40);
-				add(buttonInicioAtaque);
-
-				
+	
+				add(buttonInicioAtaque);	
 		        add(saveButton);
 
 				attackLabel.setBounds(450, 600, 300,50);
@@ -208,6 +209,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			int returnVal = fileChooser.showOpenDialog(getParent());
 		    if(returnVal == JFileChooser.APPROVE_OPTION) {
 		       System.out.println("You chose to open this file: " + fileChooser.getSelectedFile().getName());
+		       remove(loadButton);
 		       File loadGameFile = fileChooser.getSelectedFile();
 		       ctrl.loadGame(loadGameFile);
 		       jog1Posicionado = true;
