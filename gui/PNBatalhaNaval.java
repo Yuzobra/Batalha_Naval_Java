@@ -71,7 +71,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		
 
 		container = new JPanel(new GridLayout(2,1));
-		container.setSize(1400, 600);
+		container.setSize(1400, 700);
 		container.setLayout(null);
 		container.setLocation(0, 20);
 
