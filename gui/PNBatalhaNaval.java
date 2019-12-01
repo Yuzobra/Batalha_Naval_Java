@@ -371,10 +371,10 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			}
 			repaint();
 		}
-		else if(type == "recome�a")
+		else if(type == "recomeca")
 		{
 			
-			System.out.println("recome�ando");
+			System.out.println("recomecando");
 			this.reinicio = true;
 			this.ctrl.reset();
 			this.ctrl.setJogadores(j1.getMyName(), j2.getMyName());
