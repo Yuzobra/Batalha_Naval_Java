@@ -95,7 +95,6 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 		if(AttackMode == false) {
 			for(int i=0;i<15;i++) {
 				for(int j=0;j<15;j++) {
-					//System.out.println("modo de ataque falso");
 					if(mat[i][j] != -1) 
 					{
 						//System.out.println("dando merda onde vc espera");
@@ -109,6 +108,7 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 					
 					if (mat[i][j] < -1)
 					{
+						System.out.println("oooooooooooooooooooooooooo");
 						g2d.setColor(Color.RED);
 						rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
 						g2d.fill(rt);
@@ -158,7 +158,28 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 
 				for(int i=0;i<15;i++) {
 					for(int j=0;j<15;j++) {
-						if(mat[i][j] >= 0) 
+						
+						
+						
+						if(mat[i][j] == 200)
+						{
+							g2d.setColor(Color.DARK_GRAY);
+							rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
+							g2d.fill(rt);
+						}
+						else if(mat[i][j] >= 100)
+						{
+							g2d.setColor(Color.RED);
+							rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
+							g2d.fill(rt);
+						}
+						else if(mat[i][j] == -500)
+						{
+							g2d.setColor(Color.BLUE);
+							rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
+							g2d.fill(rt);
+						}
+						else if(mat[i][j] >= 0) 
 						{
 							if(numTab == 1)
 								{g2d.setPaint(Color.YELLOW);}
@@ -168,12 +189,15 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 							g2d.fill(rt);
 						
 						}
-						else
+						else //if(mat[i][j]== 0) 
 						{
 							g2d.setColor(Color.CYAN);
 							rt=new Rectangle2D.Double(tab[i][j].getX()+(espLinha/2),tab[i][j].getY()+(espLinha/2),larg+1,alt+1);
-							g2d.fill(rt);							
+							g2d.fill(rt);
 						}
+						
+			
+
 					}
 				}
 				
