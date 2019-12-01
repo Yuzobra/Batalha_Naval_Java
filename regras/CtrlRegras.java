@@ -22,6 +22,8 @@ public class CtrlRegras implements Observable {
 	Jogador j1;
 	Jogador j2;
 	
+	int ultimaPeca = -1;
+	
 	String jogs[] = new String[2];
 	
 	int vez=5;
@@ -145,12 +147,15 @@ public class CtrlRegras implements Observable {
 		if(tabuleiro[celY][celX] >= 0 && tabuleiro[celY][celX] < 100 ) 
 		{
 			
+			this.ultimaPeca = tabuleiro[celY][celX];
 			tabuleiro[celY][celX] = tabuleiro[celY][celX] + 100;
+			
 			System.out.printf("configurando celula como atacada com valor: %d\n" ,tabuleiro[celY][celX]);
 			return 1;
 		}
 		else if(tabuleiro[celY][celX] <= -1 && tabuleiro[celY][celX] != -500)
 		{
+			this.ultimaPeca = -1;
 			System.out.println("configurando celula como erro");
 			tabuleiro[celY][celX] = -500;
 			return -1;
@@ -708,4 +713,9 @@ public class CtrlRegras implements Observable {
 
 	}
 
+	public int getUltimaPeca()
+	{
+		return this.ultimaPeca;
+	}
+	
 }

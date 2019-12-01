@@ -94,4 +94,10 @@ public class Fachada {
 	{
 		ctrl.reset();
 	}
+	
+	public int getUltimaPeca()
+	{
+		return ctrl.getUltimaPeca();
+	}
+	
 }
