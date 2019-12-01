@@ -89,4 +89,9 @@ public class Fachada {
 	public Jogador getJogador(int numJog) {
 		return ctrl.getJogador(numJog);
 	}
+	
+	public void reset()
+	{
+		ctrl.reset();
+	}
 }

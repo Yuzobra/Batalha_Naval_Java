@@ -693,4 +693,19 @@ public class CtrlRegras implements Observable {
 		
 		return data;
 	}
+
+	public void reset()
+	{
+		this.tabuleiro1 = new int[15][15];
+		this.tabuleiro2 = new int[15][15];
+		int i, j;
+		for(i = 0; i < 15;i++){
+			for(j = 0; j < 15;j++){
+				this.tabuleiro1[i][j] = -1;
+				this.tabuleiro2[i][j] = -1;
+			}	
+		}
+
+	}
+
 }

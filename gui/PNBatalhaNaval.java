@@ -102,7 +102,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		super.paintComponent(g);
 		Graphics2D g2d=(Graphics2D) g;
 		add(menuBar);
-		if(j1.getMyName() == "stub" || j2.getMyName() == "stub" && !reinicio)
+		if(ctrl.getJogador(1).getMyName() == "stub" || ctrl.getJogador(2).getMyName() == "stub" && reinicio == false )// && //reinicio == false)
 		{
 			
 			g2d.drawString("Jogador 1:", 650, 350);
@@ -120,10 +120,12 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	        add(loadButton);
 		}
 		else {
-			remove(buttonInicio);
-			remove(nameTextField);
-			remove(nameTextField2);
-
+			if( reinicio == false )
+			{
+				remove(buttonInicio);
+				remove(nameTextField);
+				remove(nameTextField2);
+			}
 			// ADD TABULEIROS
 			
 			if(!jog1Posicionado) {
@@ -187,7 +189,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 
 	class AtaqueButton implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("removendo");
+//			System.out.println("removendo");
 			remove(buttonInicioAtaque);
 			repaint();
 			if(attackEnded == true) {
@@ -365,6 +367,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		}
 		else if(type == "recomeça")
 		{
+			
 			System.out.println("recomeçando");
 			this.reinicio = true;
 			this.xIni=40.0;
@@ -425,9 +428,11 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 
 			this.setPecas();
 			
+			//this.ctrl.reset();
+			
 			repaint();
 			
-	      // this.ctrl. 		
+	        	
 	        
 	
 		
