@@ -102,9 +102,9 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		super.paintComponent(g);
 		Graphics2D g2d=(Graphics2D) g;
 		add(menuBar);
-		if(ctrl.getJogador(1).getMyName() == "stub" || ctrl.getJogador(2).getMyName() == "stub" && reinicio == false )// && //reinicio == false)
+		if((ctrl.getJogador(1).getMyName() == "stub" || ctrl.getJogador(2).getMyName() == "stub") && reinicio == false )// && //reinicio == false)
 		{
-			
+			System.out.println("inicio");
 			g2d.drawString("Jogador 1:", 650, 350);
 			g2d.drawString("Jogador 2:", 650, 400);
 			nameTextField.setBounds(715, 335, 100, 25);
@@ -128,6 +128,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			}
 			else
 			{
+				System.out.println("faz sentido ");
 				remove(BF1);
 				remove(BF2);
 				BF1.repaint();
@@ -382,7 +383,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			System.out.println("recomeçando");
 			this.reinicio = true;
 			this.ctrl.reset();
-			
+			this.ctrl.setJogadores(j1.getMyName(), j2.getMyName());
 			this.xIni=40.0;
 			this.yIni=40.0;
 			this.xIni2=800.0;
@@ -393,34 +394,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			this.tab1 =new Celula[15][15];
 			this.tab2 =new Celula[15][15];
 			
-			//this.fileChooser = new JFileChooser();
-		//	this.filter = new FileNameExtensionFilter(
-			//        "Game load file", "txt");
-			
-			
-			//this.menuBar= new JMenuBar();  
-		   // this.menuB =new JMenu("Menu");  
-		    
-		    
-		   // this.i1=new JMenuItem("Load Game");  
-		    //this.i2=new JMenuItem("Save Game");  
-			
-			
-
-			//Jogador jogadores [] ;
-	//		this.ln1 = new Line2D.Double[32];
-	//		this.ln2 = new Line2D.Double[32];
-		
 			this.vez = -1;
-			
-			//this.nameTextField = new JTextField(20);
-			//this.nameTextField2 = new JTextField(20);
-		  //  this.buttonInicio = new JButton("Start");
-		   // this.buttonInicioAtaque = new JButton("Start Attack");
-		  //  this.saveButton = new JButton("Save Game");
-		  //  this.loadButton = new JButton("Load Game");
-		 //   this.attackLabel = new JLabel("AAAAAAAAAAAAAAAAAAAAAAAAA");
-		    
 		    
 		    this.jog1Posicionado = false;
 		    this.jog2Posicionado = false;
@@ -441,9 +415,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			container.setLocation(0, 0);
 
 			this.setPecas();
-			
-			this.ctrl.reset();
-			
+						
 			repaint();
 			
 	        	
