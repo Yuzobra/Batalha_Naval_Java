@@ -374,7 +374,20 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 			
 			if(afundou)
 			{
-				ctrl.checaVencedor(numTab);
+				if(ctrl.checaVencedor(numTab))
+				{
+					repaint();
+					System.out.println("Venceu");
+					int reposta  = JOptionPane.showConfirmDialog(null, "Jogador "+ nomeJog.strip() + " Venceu!!!!, \n Quer Jogar De novo?", "Vitoria", JOptionPane.YES_NO_OPTION);
+					if(reposta == JOptionPane.YES_OPTION)
+					{
+						// TO-DO
+					}
+					else
+					{
+						System.exit(0);
+					}
+				}
 			}
 			repaint();
 
