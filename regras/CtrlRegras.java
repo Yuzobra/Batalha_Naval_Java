@@ -515,7 +515,7 @@ public class CtrlRegras implements Observable {
 		lob.add(o);
 	}
 
-	public void saveGame(int Vez, int numAcertos) {
+	public void saveGame(int Vez, int numAcertos , boolean attackHasEnded) {
 		String data = "";
 		File saveFile;
 		FileWriter fr = null;
@@ -549,13 +549,24 @@ public class CtrlRegras implements Observable {
             }
             
             // Salvar de qual jogador é a vez
-            if(vez == 1) {
-            	data = data + Integer.toString(2) + "\n";
+            if(attackHasEnded)
+            {
+	            if(vez == 1) {
+	            	data = data + Integer.toString(2) + "\n";
+	            }
+	            else {            	
+	            	data = data + Integer.toString(1) + "\n";
+	            }
             }
-            else {            	
-            	data = data + Integer.toString(1) + "\n";
+            else
+            {
+            	 if(vez == 1) {
+ 	            	data = data + Integer.toString(1) + "\n";
+ 	            }
+ 	            else {            	
+ 	            	data = data + Integer.toString(2) + "\n";
+ 	            }
             }
-            
             // Salvar numero de tiros já feitos
             data = data + Integer.toString(numAcertos) + "\n";
             		
@@ -594,10 +605,15 @@ public class CtrlRegras implements Observable {
 				}
 				else if(i == 2) /* Preencher de quem é a vez */ {
 					vez = Integer.parseInt(line);
+					System.out.printf("printando vez %d\n", vez);
 				}
 				
-				else if(i == 3) /* Preencher quantos tiros foram feitos TODO */ {
-					
+				else if(i == 3) /* Preencher quantos tiros foram feitos TODO */ 
+				{
+					if(vez == 0)
+					{
+						
+					}
 				}
 				
 				else if(i == 4) /* Preencher nome do jogador 1 */ {
@@ -611,7 +627,7 @@ public class CtrlRegras implements Observable {
 				i++;
 			}
 			
-			System.out.println(vez);
+			//System.out.println(vez);
 			System.out.println(j1.getMyName());
 			System.out.println(j2.getMyName());
 			s.close();

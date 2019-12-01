@@ -176,7 +176,9 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 
 	class AtaqueButton implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
+			System.out.println("removendo");
 			remove(buttonInicioAtaque);
+			repaint();
 			if(attackEnded == true) {
 				attackEnded = false;
 				if(vez == 1) {		
@@ -191,7 +193,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	
 	class SaveButton implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			ctrl.saveGame(vez, numAcertos);
+			ctrl.saveGame(vez, numAcertos, attackEnded);
 		}
 	}
 	

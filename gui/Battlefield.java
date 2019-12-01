@@ -23,7 +23,7 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 	private boolean AttackMode = false;
 	private boolean isHidden = false;
 	public boolean isUnderAttack = false;
-	private int ataques = 0;
+	public int ataques = 0;
 	int pressedX=0 , pressedY=0;
 	List<Observer> lob=new ArrayList<Observer>();
 	Object data[] = new Object[5]; 

@@ -19,7 +19,9 @@ public class FRBatalhaNaval extends JFrame {
 		setBounds(x,y,LARG_DEFAULT,ALT_DEFAULT);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		JPanel container = new JPanel(new GridLayout(1,1));
-		container.add(new PNBatalhaNaval(f));
+		PNBatalhaNaval panel = new PNBatalhaNaval(f);
+		panel.setLayout(null);
+		container.add(panel);
 		getContentPane().add(container);
 		setTitle("Batalha Naval");
 	}
