@@ -182,12 +182,14 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	
 	class IntroButton implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-	       ctrl.setJogadores(nameTextField.getText(), nameTextField2.getText());
+		if(nameTextField.getText().strip() != ""  && nameTextField2.getText().strip() != "")
+		{ ctrl.setJogadores(nameTextField.getText(), nameTextField2.getText());
 	       j1.setMyName(nameTextField.getText());
 	       j2.setMyName(nameTextField2.getText());
 	       BF1.setJogador(ctrl.getJogador(1));
 	       BF2.setJogador(ctrl.getJogador(2));
-	    }
+		}
+	  }
 	}
 
 	class AtaqueButton implements ActionListener{
