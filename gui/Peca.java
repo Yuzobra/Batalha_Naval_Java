@@ -216,8 +216,9 @@ public class Peca extends JPanel implements MouseListener, MouseMotionListener, 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		for(Observer o:lob)
+		for(Observer o:lob) {
 			o.notify(this);
+		}
 	}
 
 	@Override

@@ -270,6 +270,7 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 	}
 
 	public void mouseEntered(MouseEvent e) {}
+	
 	public void mousePressed(MouseEvent e) 
 	{
 		if(AttackMode == true)
@@ -313,7 +314,6 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 		for(Observer o:lob)
 			o.notify(this);
 	}
-	
 	
 	public void Attack(int x , int y)
 	{
@@ -399,10 +399,9 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 		}
 	}
 	
-	
 	public void mouseReleased(MouseEvent e) {}
-	public void mouseExited(MouseEvent e) {}
 	
+	public void mouseExited(MouseEvent e) {}
 	
 	public boolean isHidden() {
 		return isHidden;

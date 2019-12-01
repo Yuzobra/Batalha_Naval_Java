@@ -13,6 +13,9 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	double xIni=40.0,yIni=40.0,xIni2=800.0,larg=30.0,alt=30.0,espLinha=5.0;
 	int iClick,jClick;
 	int numAcertos = 0;
+	boolean gameLoaded = false;
+
+	
 	Celula tab1[][]=new Celula[15][15];
 	Celula tab2[][]=new Celula[15][15];
 	
@@ -120,11 +123,12 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			remove(buttonInicio);
 			remove(nameTextField);
 			remove(nameTextField2);
-			remove(loadButton);
+
 			// ADD TABULEIROS
 			
 			if(!jog1Posicionado) {
 				// ADD TABULEIROS
+				loadButton.setLocation(600, 600);
 				BF1.setBounds(700,0, 700, 1000);
 				if(BF1.getParent() != container) {
 					container.add(BF1,15);					
@@ -149,6 +153,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				}
 			}
 			else if(jog2Posicionado == true && jog1Posicionado == true && vez == -1) {
+				remove(loadButton);
 				BF1.setBounds(0,0, 700, 1000);
 				container.remove(BF2);
 				BF1.setAttackMode();
@@ -156,9 +161,8 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				container.add(BF1,0);
 				container.add(BF2,1);
 				buttonInicioAtaque.setBounds(575, 600, 150, 40);
-				add(buttonInicioAtaque);
-
-				
+	
+				add(buttonInicioAtaque);	
 		        add(saveButton);
 
 				attackLabel.setBounds(450, 600, 300,50);
@@ -209,6 +213,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			int returnVal = fileChooser.showOpenDialog(getParent());
 		    if(returnVal == JFileChooser.APPROVE_OPTION) {
 		       System.out.println("You chose to open this file: " + fileChooser.getSelectedFile().getName());
+		       remove(loadButton);
 		       File loadGameFile = fileChooser.getSelectedFile();
 		       ctrl.loadGame(loadGameFile);
 		       jog1Posicionado = true;
@@ -298,8 +303,13 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		}
 		else if(type.compareTo("attack-executed") == 0) {
 			String tipoAcerto = (String)lob[3];
-			numAcertos = (int)lob[1];
+			
+			if(gameLoaded != true) {
+				numAcertos = (int)lob[1];
+			}
+			
 			if(numAcertos == 3) {
+				gameLoaded = false;
 				numAcertos = 0;
 				BF1.setAttackMode();
 				BF2.setAttackMode();
@@ -308,13 +318,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				attackEnded = true;
 				add(buttonInicioAtaque);
 				repaint();
-		}
-		
-
-			
-
-			
-			
+			}
 			
 			// #TODO CONSERTAR ESSES SETTEXT QUE N FUNCIONAM
 			if( tipoAcerto.compareTo("agua") == 0) {
@@ -333,10 +337,18 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 //				attackLabel = "Essa casa ja foi atingida!";
 			}
 			
-			
-			
-			
+			if(gameLoaded == true) {
+				numAcertos++;
+			}
 		}
+		
+		
+		else if(type == "setNumAttacks") {
+			gameLoaded = true;
+			numAcertos = (int)lob[1]+1;
+		}
+		
+		
 		else if(type == "remove")
 		{
 			short numTab = (short)lob[2];
@@ -534,14 +546,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		
 		vPecas1 = ctrl.getJogador(1).getMyPieces();
 		vPecas2 = ctrl.getJogador(2).getMyPieces();
-		
-		for(int i =0 ; i< 15 ; i++)
-		{
-			vPecas1[i].addObserver(this);
-			vPecas2[i].addObserver(this);
-		}
-		
-	    
+			    
 		vPecas1[0].setBounds(50,100, 100,70);
 		vPecas1[1].setBounds(185,100, 100,70);
 		vPecas1[2].setBounds(320,100, 100,70);
