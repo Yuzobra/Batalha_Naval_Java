@@ -13,6 +13,9 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	double xIni=40.0,yIni=40.0,xIni2=800.0,larg=30.0,alt=30.0,espLinha=5.0;
 	int iClick,jClick;
 	int numAcertos = 0;
+	boolean gameLoaded = false;
+
+	
 	Celula tab1[][]=new Celula[15][15];
 	Celula tab2[][]=new Celula[15][15];
 	
@@ -294,8 +297,13 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		}
 		else if(type.compareTo("attack-executed") == 0) {
 			String tipoAcerto = (String)lob[3];
-			numAcertos = (int)lob[1];
+			
+			if(gameLoaded != true) {
+				numAcertos = (int)lob[1];
+			}
+			
 			if(numAcertos == 3) {
+				gameLoaded = false;
 				numAcertos = 0;
 				BF1.setAttackMode();
 				BF2.setAttackMode();
@@ -304,13 +312,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				attackEnded = true;
 				add(buttonInicioAtaque);
 				repaint();
-		}
-		
-
-			
-
-			
-			
+			}
 			
 			// #TODO CONSERTAR ESSES SETTEXT QUE N FUNCIONAM
 			if( tipoAcerto.compareTo("agua") == 0) {
@@ -329,10 +331,18 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 //				attackLabel = "Essa casa ja foi atingida!";
 			}
 			
-			
-			
-			
+			if(gameLoaded == true) {
+				numAcertos++;
+			}
 		}
+		
+		
+		else if(type == "setNumAttacks") {
+			gameLoaded = true;
+			numAcertos = (int)lob[1]+1;
+		}
+		
+		
 		else if(type == "remove")
 		{
 			short numTab = (short)lob[2];

@@ -22,7 +22,11 @@ public class CtrlRegras implements Observable {
 	Jogador j1;
 	Jogador j2;
 	
+	String jogs[] = new String[2];
+	
 	int vez=5;
+	
+	Object data[] = new Object[5];
 	List<Observer> lob=new ArrayList<Observer>();
 	public CtrlRegras() {
 		this.tabuleiro1 = new int[15][15];
@@ -66,8 +70,18 @@ public class CtrlRegras implements Observable {
 	}		
 	
 	public void setJogadores(String jog1, String jog2) {
+		
 		this.jog1 = jog1;
 		this.jog2 = jog2;
+
+		jogs[0] = jog1;
+		jogs[1] = jog2;
+		
+		data[0] = "regras";
+		data[1] = tabuleiro1;
+		data[2] = tabuleiro2;
+		data[3] = vez;
+		data[4] = jogs;
 		for(Observer o:lob)
 			o.notify(this);
 	}
@@ -612,11 +626,12 @@ public class CtrlRegras implements Observable {
 				}
 				
 				else if(i == 3) /* Preencher quantos tiros foram feitos TODO */ 
-				{
-					if(vez == 0)
-					{
-						
-					}
+				{	
+					data[0] = "setNumAttacks";
+					data[1] = Integer.parseInt(line);
+							
+					for(Observer o:lob)
+						o.notify(this);
 				}
 				
 				else if(i == 4) /* Preencher nome do jogador 1 */ {
@@ -659,7 +674,6 @@ public class CtrlRegras implements Observable {
 
 	}
 	
-	
 	public Jogador getJogador(int numJog) {
 		if(numJog == 1) {
 			return j1;
@@ -674,16 +688,8 @@ public class CtrlRegras implements Observable {
 	}
 
 	public Object get() {
-		Object data[] = new Object[5];
-		String jogs[] = new String[2];
-		jogs[0] = jog1;
-		jogs[1] = jog2;
+
 		
-		data[0] = "regras";
-		data[1] = tabuleiro1;
-		data[2] = tabuleiro2;
-		data[3] = vez;
-		data[4] = jogs;
 		return data;
 	}
 }
