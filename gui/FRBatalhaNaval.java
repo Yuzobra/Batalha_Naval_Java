@@ -21,6 +21,7 @@ public class FRBatalhaNaval extends JFrame {
 		JPanel container = new JPanel(new GridLayout(1,1));
 		PNBatalhaNaval panel = new PNBatalhaNaval(f);
 		panel.setLayout(null);
+
 		container.add(panel);
 		getContentPane().add(container);
 		setTitle("Batalha Naval");

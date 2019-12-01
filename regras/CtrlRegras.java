@@ -515,77 +515,80 @@ public class CtrlRegras implements Observable {
 		lob.add(o);
 	}
 
-	public void saveGame(int Vez, int numAcertos , boolean attackHasEnded) {
-		String data = "";
-		File saveFile;
-		FileWriter fr = null;
-		int i, j;
-		try {
-			saveFile = new File("saveFile.txt");
-            fr = new FileWriter(saveFile);
-            
-            
-            for(i = 0; i < 15; i++) /* Salvar tabuleiro do jogador 1 */ {
-            	for(j = 0; j < 15; j++) {
-            		data = data + Integer.toString(tabuleiro1[j][i]);
-            		if(i == 14 && j == 14) {
-            			data = data + "\n";
-            		}
-            		else {
-            			data = data + ",";
-            		}
-            	}
-            }
-            for(i = 0; i < 15; i++) {
-            	for(j = 0; j < 15; j++) /* Salvar tabuleiro do jogador 2 */ {
-            		data = data + Integer.toString(tabuleiro2[j][i]);
-            		if(i == 14 && j == 14) {
-            			data = data + "\n";
-            		}
-            		else {
-            			data = data + ",";
-            		}
-            	}
-            }
-            
-            // Salvar de qual jogador é a vez
-            if(attackHasEnded)
-            {
-	            if(vez == 1) {
-	            	data = data + Integer.toString(2) + "\n";
+	public void saveGame(boolean jog1Posicionado, boolean jog2Posicionado ,int Vez, int numAcertos , boolean attackHasEnded) {
+		if(jog1Posicionado == true &&  jog2Posicionado == true)
+		{
+			String data = "";
+			File saveFile;
+			FileWriter fr = null;
+			int i, j;
+			try {
+				saveFile = new File("saveFile.txt");
+	            fr = new FileWriter(saveFile);
+	            
+	            
+	            for(i = 0; i < 15; i++) /* Salvar tabuleiro do jogador 1 */ {
+	            	for(j = 0; j < 15; j++) {
+	            		data = data + Integer.toString(tabuleiro1[j][i]);
+	            		if(i == 14 && j == 14) {
+	            			data = data + "\n";
+	            		}
+	            		else {
+	            			data = data + ",";
+	            		}
+	            	}
 	            }
-	            else {            	
-	            	data = data + Integer.toString(1) + "\n";
+	            for(i = 0; i < 15; i++) {
+	            	for(j = 0; j < 15; j++) /* Salvar tabuleiro do jogador 2 */ {
+	            		data = data + Integer.toString(tabuleiro2[j][i]);
+	            		if(i == 14 && j == 14) {
+	            			data = data + "\n";
+	            		}
+	            		else {
+	            			data = data + ",";
+	            		}
+	            	}
 	            }
-            }
-            else
-            {
-            	 if(vez == 1) {
- 	            	data = data + Integer.toString(1) + "\n";
- 	            }
- 	            else {            	
- 	            	data = data + Integer.toString(2) + "\n";
- 	            }
-            }
-            // Salvar numero de tiros já feitos
-            data = data + Integer.toString(numAcertos) + "\n";
-            		
-            // Salvar nome dos jogadores
-            data = data + j1.getMyName() + "\n";
-            data = data + j2.getMyName();
-            
-            
-            fr.write(data);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally{
-            //close resources
-            try {
-                fr.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+	            
+	            // Salvar de qual jogador é a vez
+	            if(attackHasEnded)
+	            {
+		            if(vez == 1) {
+		            	data = data + Integer.toString(2) + "\n";
+		            }
+		            else {            	
+		            	data = data + Integer.toString(1) + "\n";
+		            }
+	            }
+	            else
+	            {
+	            	 if(vez == 1) {
+	 	            	data = data + Integer.toString(1) + "\n";
+	 	            }
+	 	            else {            	
+	 	            	data = data + Integer.toString(2) + "\n";
+	 	            }
+	            }
+	            // Salvar numero de tiros já feitos
+	            data = data + Integer.toString(numAcertos) + "\n";
+	            		
+	            // Salvar nome dos jogadores
+	            data = data + j1.getMyName() + "\n";
+	            data = data + j2.getMyName();
+	            
+	            
+	            fr.write(data);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }finally{
+	            //close resources
+	            try {
+	                fr.close();
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	            }
+	        }
+		}
 	}
 
 	public void loadGame(File loadGameFile) {

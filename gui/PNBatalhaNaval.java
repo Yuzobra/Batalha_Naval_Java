@@ -21,9 +21,10 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	        "Game load file", "txt");
 	
 	
-	JMenuBar mb= new JMenuBar();  
-    JMenu menu=new JMenu("Menu");  
-
+	JMenuBar menuBar= new JMenuBar();  
+    JMenu menuB =new JMenu("Menu");  
+    
+    
     JMenuItem i1=new JMenuItem("Load Game");  
     JMenuItem i2=new JMenuItem("Save Game");  
 	
@@ -65,7 +66,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		
 
 		container = new JPanel(new GridLayout(2,1));
-		container.setSize(1400, 700);
+		container.setSize(1400, 600);
 		container.setLayout(null);
 		container.setLocation(0, 0);
 
@@ -75,26 +76,28 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		buttonInicio.addActionListener(new IntroButton());
         buttonInicio.setBounds(670, 450, 100, 40);
         buttonInicioAtaque.addActionListener(new AtaqueButton());
-        buttonInicioAtaque.setBounds(600, 550, 100, 40);
+        buttonInicioAtaque.setBounds(575, 600, 150, 40);
         saveButton.addActionListener(new SaveButton());
-        saveButton.setBounds(600, 600, 100, 40);
+        saveButton.setBounds(575, 650, 150, 40);
         loadButton.addActionListener(new LoadButton());
         loadButton.setBounds(670, 500, 100, 40);
         		
 		fileChooser.setFileFilter(filter);
         
-		menu.add(i1);
-	    
-	    menu.add(i2);
-	    mb.add(menu);  
-//	    ((JFrame) SwingUtilities.getWindowAncestor(this)).setJMenuBar(mb);  
+		menuBar.setBounds(0,0 , 1400, 20);
+		i1.addActionListener(new LoadButton());
+		menuB.add(i1);
+	    i2.addActionListener(new SaveButton());
+	    menuB.add(i2);
+	    menuBar.add(menuB);  
+	    //((JFrame) SwingUtilities.getWindowAncestor(this)).setJMenuBar(menuBar);  
         	    
 	}
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d=(Graphics2D) g;
-		
+		add(menuBar);
 		if(ctrl.getJogador(1).getMyName() == "stub" || ctrl.getJogador(2).getMyName() == "stub") {
 			
 			g2d.drawString("Jogador 1:", 650, 350);
@@ -150,7 +153,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 				BF2.setAttackMode();
 				container.add(BF1,0);
 				container.add(BF2,1);
-				buttonInicioAtaque.setBounds(600, 550, 100, 40);
+				buttonInicioAtaque.setBounds(575, 600, 150, 40);
 				add(buttonInicioAtaque);
 
 				
@@ -193,7 +196,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	
 	class SaveButton implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			ctrl.saveGame(vez, numAcertos, attackEnded);
+			ctrl.saveGame(jog1Posicionado, jog2Posicionado, vez, numAcertos, attackEnded);
 		}
 	}
 	
@@ -212,7 +215,7 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 		       BF2.setAttackMode();
 		       container.add(BF1,0);
 		       container.add(BF2,1);
-		       buttonInicioAtaque.setBounds(600, 550, 100, 40);
+		       buttonInicioAtaque.setBounds(575, 600, 150, 40);
 		       add(buttonInicioAtaque);
 		       add(saveButton);
 		       vez = ctrl.getVez();
@@ -312,13 +315,13 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 			// #TODO CONSERTAR ESSES SETTEXT QUE N FUNCIONAM
 			if( tipoAcerto.compareTo("agua") == 0) {
 				
-//				attackLabel.setText("Água atingida!");
-//				attackLabel = "Água atingida!";
+//				attackLabel.setText("ï¿½gua atingida!");
+//				attackLabel = "ï¿½gua atingida!";
 			}
 			
 			else if( tipoAcerto.compareTo("peca") == 0) {
-//				attackLabel.setText("Peça atingida!");
-//				attackLabel = "Peça atingida!";
+//				attackLabel.setText("Peï¿½a atingida!");
+//				attackLabel = "Peï¿½a atingida!";
 			}
 			
 			else if( tipoAcerto.compareTo("erro") == 0) {
