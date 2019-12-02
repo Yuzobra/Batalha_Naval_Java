@@ -143,22 +143,23 @@ public class CtrlRegras implements Observable {
 			tabuleiro = this.tabuleiro2;
 		}
 		
-		
-		if(tabuleiro[celY][celX] >= 0 && tabuleiro[celY][celX] < 100 ) 
-		{
-			
-			this.ultimaPeca = tabuleiro[celY][celX];
-			tabuleiro[celY][celX] = tabuleiro[celY][celX] + 100;
-			
-			System.out.printf("configurando celula como atacada com valor: %d\n" ,tabuleiro[celY][celX]);
-			return 1;
-		}
-		else if(tabuleiro[celY][celX] <= -1 && tabuleiro[celY][celX] != -500)
-		{
-			this.ultimaPeca = -1;
-			System.out.println("configurando celula como erro");
-			tabuleiro[celY][celX] = -500;
-			return -1;
+		if(celX >= 0 && celY >= 0 && celX < 15 && celY < 15) {
+			if(tabuleiro[celY][celX] >= 0 && tabuleiro[celY][celX] < 100 ) 
+			{
+				
+				this.ultimaPeca = tabuleiro[celY][celX];
+				tabuleiro[celY][celX] = tabuleiro[celY][celX] + 100;
+				
+				System.out.printf("configurando celula como atacada com valor: %d\n" ,tabuleiro[celY][celX]);
+				return 1;
+			}
+			else if(tabuleiro[celY][celX] <= -1 && tabuleiro[celY][celX] != -500)
+			{
+				this.ultimaPeca = -1;
+				System.out.println("configurando celula como erro");
+				tabuleiro[celY][celX] = -500;
+				return -1;
+			}
 		}
 		
 		

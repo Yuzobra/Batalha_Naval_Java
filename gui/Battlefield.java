@@ -355,43 +355,43 @@ public class Battlefield extends JPanel implements MouseListener , Observable {
 			
 			System.out.printf("estado do ataque: %d\n", estado);
 			
-			
-			if(estado == 0) // Nao atingiu pe�a
-			{
-				 	 
-				tab[celY][celX].setEstado(Estado.Erro);
-				
-				data[1] = ataques;
-				data[2] = numTab;
-				data[3] = "erro";
-				
-				for(Observer o:lob)
-					o.notify(this);
-				
+			if(celX >= 0 && celY >= 0 && celX < 15 && celY < 15 ) {
+				if(estado == 0) // Nao atingiu pe�a
+				{
+					
+					tab[celY][celX].setEstado(Estado.Erro);
+					
+					data[1] = ataques;
+					data[2] = numTab;
+					data[3] = "erro";
+					
+					for(Observer o:lob)
+						o.notify(this);
+					
+				}
+				else if(estado == 1) // Atingiu uma peca
+				{
+					System.out.println("entrando no if");
+					tab[celY][celX].setEstado(Estado.Atacado); 
+					afundou = ctrl.checaPecaAfundada(numTab, x, y);
+					ataques++;
+					data[1] = ataques;
+					data[2] = numTab;
+					data[3] = "peca";
+					data[4] = ctrl.getUltimaPeca();
+					for(Observer o:lob)
+						o.notify(this);
+				}
+				else // Atacou uma celula j� atacada
+				{
+					ataques++;
+					data[1] = ataques;
+					data[2] = numTab;
+					data[3] = "agua";
+					for(Observer o:lob)
+						o.notify(this);
+				}
 			}
-			else if(estado == 1) // Atingiu uma peca
-			{
-				System.out.println("entrando no if");
-				tab[celY][celX].setEstado(Estado.Atacado); 
-				afundou = ctrl.checaPecaAfundada(numTab, x, y);
-				ataques++;
-				data[1] = ataques;
-				data[2] = numTab;
-				data[3] = "peca";
-				data[4] = ctrl.getUltimaPeca();
-				for(Observer o:lob)
-					o.notify(this);
-			}
-			else // Atacou uma celula j� atacada
-			{
-				ataques++;
-				data[1] = ataques;
-				data[2] = numTab;
-				data[3] = "agua";
-				for(Observer o:lob)
-					o.notify(this);
-			}
-
 			if(ataques == 3) {
 				ataques = 0;
 			}
