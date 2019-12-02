@@ -216,7 +216,10 @@ public class PNBatalhaNaval extends JPanel implements Observer {
 	
 	class SaveButton implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			ctrl.saveGame(jog1Posicionado, jog2Posicionado, vez, numAcertos, attackEnded);
+			int returnVal = fileChooser.showSaveDialog(getParent());
+		    if(returnVal == JFileChooser.APPROVE_OPTION) {  	
+		    	ctrl.saveGame(fileChooser.getSelectedFile(), jog1Posicionado, jog2Posicionado, vez, numAcertos, attackEnded);
+		    }
 		}
 	}
 	

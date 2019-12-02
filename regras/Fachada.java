@@ -78,8 +78,8 @@ public class Fachada {
 		ctrl.removePadding(posX, posY, numTab);
 	}
 	
-	public void saveGame(boolean jog1Posicionado, boolean jog2Posicionado, int vez, int numAcertos, boolean attackHasEnded) {
-		ctrl.saveGame(jog1Posicionado, jog2Posicionado, vez, numAcertos, attackHasEnded);
+	public void saveGame(File file, boolean jog1Posicionado, boolean jog2Posicionado, int vez, int numAcertos, boolean attackHasEnded) {
+		ctrl.saveGame(file, jog1Posicionado, jog2Posicionado, vez, numAcertos, attackHasEnded);
 	}
 	
 	public void loadGame(File file) {

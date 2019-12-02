@@ -567,18 +567,15 @@ public class CtrlRegras implements Observable {
 		lob.add(o);
 	}
 
-	public void saveGame(boolean jog1Posicionado, boolean jog2Posicionado ,int Vez, int numAcertos , boolean attackHasEnded) {
+	public void saveGame(File saveFile, boolean jog1Posicionado, boolean jog2Posicionado ,int Vez, int numAcertos , boolean attackHasEnded) {
 		if(jog1Posicionado == true &&  jog2Posicionado == true)
 		{
 			String data = "";
-			File saveFile;
 			FileWriter fr = null;
 			int i, j;
 			try {
-				saveFile = new File("saveFile.txt");
-	            fr = new FileWriter(saveFile);
-	            
-	            
+				fr = new FileWriter(saveFile);
+	              
 	            for(i = 0; i < 15; i++) /* Salvar tabuleiro do jogador 1 */ {
 	            	for(j = 0; j < 15; j++) {
 	            		data = data + Integer.toString(tabuleiro1[j][i]);
